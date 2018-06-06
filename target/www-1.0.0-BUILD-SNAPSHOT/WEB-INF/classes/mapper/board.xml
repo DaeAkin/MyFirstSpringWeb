@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN/" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.www.Service.BoardDao"><!-- Class be looked -->
+	<insert id="insertContent" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="id">
+		insert into freeboard (
+			title,
+			writer,
+			content
+		)values (
+		#{title},
+		'admin',
+		#{smarteditor}
+		
+		) on duplicate key update 
+		title = #{title},
+		writer = 'admin',
+		content = #{smarteditor}
+	
+	</insert>
+	
+	<insert id="insertFile" parameterType="java.util.HashMap">
+		INSERT INTO TB_FILE
+		(
+			
+			BOARD_IDX,
+			ORIGINAL_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE,
+			CREA_ID
+		)
+		VALUES
+		(
+			#{BOARD_IDX},
+			#{ORIGINAL_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE},
+			'Admin'
+		)
+		
+	</insert>
+	<select id="selectContentCnt" resultType="int" parameterType="java.util.HashMap">
+		select
+			count(id)
+		from
+			freeboard
+	</select>
+	
+	<select id="selectContent" resultType="com.min.www.dto.BoardDto" parameterType="java.util.HashMap">
+		select
+			id,
+			title,
+			writer,
+			content,
+			date_format(writetime, '%Y-%m-%d %H:%i:%s' ) writetime
+		from
+			freeboard
+		order by id DESC
+		limit #{start}, #{end}
+	</select>
+	
+	<select id="selectContentView" resultType="com.min.www.dto.BoardDto" parameterType="java.util.HashMap">
+		select
+			id,
+			title,
+			writer,
+			content,
+			date_format(writetime, '%Y-%m-%d %H:%i:%s' ) writetime
+			
+		from
+			freeboard
+		where
+			id = #{id}
+	</select>
+	<insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id">
+	insert into freeboardreply (
+		board_id,
+		parent_id,
+		depth,
+		reply_content,
+		reply_writer,
+		reply_password
+	)values (
+		#{board_id},
+		#{parent_id},
+		#{depth},
+		#{reply_content},
+		#{reply_writer},
+		#{reply_password}
+	 )
+	</insert>
+	<select id="selectBoardReplyList" resultType="com.min.www.dto.BoardReplyDto" parameterType="java.util.HashMap">
+		select
+			reply_id,
+			board_id,
+			parent_id,
+			depth,
+			reply_content,
+			reply_writer,
+			reply_password
+		from
+			freeboardreply
+		where
+			board_id = #{id}
+		order by reply_id asc
+	</select>
+	<delete id="deleteBoardReply" parameterType="java.util.HashMap">
+		delete
+		from
+			freeboardreply
+		where
+			reply_id = #{reply_id}
+			and reply_password = #{reply_password}
+	</delete>
+	<select id="selectBoardCnt" resultType="int" parameterType="java.util.HashMap">
+		select
+			count(id)
+		from
+			freeboard
+		where
+			id = #{id}
+			and password = #{password}
+	</select>
+	<delete id="deleteBoard" parameterType="java.util.HashMap">
+		delete
+		from
+			freeboard
+		where
+			id = #{id}
+			and password = #{password}
+			
+	</delete>
+	
+	
+
+</mapper>

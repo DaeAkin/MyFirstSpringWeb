@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN/" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.www.dao.webSocket.WebSocketReplyDao"><!-- Class be looked -->
+	
+	<insert id="insertReplys"  parameterType="java.util.HashMap">
+	INSERT 
+	into
+	freeboardreplyalter
+	(id,board_id,reply_id,isaltered) VALUES
+	(#{id},#{board_id},#{reply_id},#{isaltered})
+		
+	
+	</insert>
+	
+	
+	<select id="getAlterReplys" parameterType="java.util.HashMap" resultType="com.min.www.dto.webSocket.WebSocketReplyDto">
+	
+	SELECT 
+		* 
+	FROM 
+		freeboard RIGHT OUTER JOIN 
+		freeboardreplyalter ON 
+		freeboardreplyalter.board_id = freeboard.id 
+		WHERE freeboard.writer="대악인"
+
+	</select>
+	
+	<update id="updateIsAlerted" parameterType="java.util.HashMap">
+	
+	UPDATE
+		freeboardreplyalter
+	SET isalerted=1 
+		WHERE 
+	alert_id = #{alert_id}
+	
+	</update>
+
+
+	
+
+</mapper>
