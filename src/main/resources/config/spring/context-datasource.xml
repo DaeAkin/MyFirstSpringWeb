@@ -12,7 +12,7 @@
 		<!-- jdbc:mysql://127.0.0.1/myfirstweb?useUnicode=true&amp;characterEncoding=UTF-8 -->
 		<!--  autoReconnect=true&useSSL=false -->
 		<property name="username" value="root"/>
-		<property name="password" value="!Djaak4124"/>
+		<property name="password" value="!djaak4124"/>
 	</bean>
 	
 	

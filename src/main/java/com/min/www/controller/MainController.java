@@ -16,10 +16,10 @@ public class MainController {
 	
 
 	
-	@RequestMapping("/")
+	@RequestMapping("/main")
 	public String hello() {
 		System.out.println("main 호출()");
-		return "content";
+		return "main";
 	}
 	
 	
