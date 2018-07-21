@@ -169,13 +169,13 @@ public class MController {
 		return "MemberEdit";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/member/memberEdit")
-	public void memberEdit(@RequestMapping Map<String,Object> paramMap) {
-		
-		
-		
-	}
+//	@ResponseBody
+//	@RequestMapping(value="/member/memberEdit")
+//	public void memberEdit(@RequestMapping Map<String,Object> paramMap) {
+//		
+//		
+//		
+//	}
 	
 	@RequestMapping(value="/member/image/upload")
 	public void memberImageUpload(MultipartFile file,HttpSession session)  throws Exception{

@@ -8,21 +8,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.min.www.dto.member.MemberDto;
 
 public class UserDetailService implements UserDetailsService{
-	
-	@Autowired
-	private UserService
 
 	@Override
-	public UserDetails loadUserByUsername(String lgnId) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		MemberDto memberDto = null;
-		
-		try {
-			System.out.println("id =============>" +lgnId);
-			memberDto =
-		}
 		return null;
 	}
+	
+//	@Autowired
+//	private UserService
+//
+//	@Override
+//	public UserDetails loadUserByUsername(String lgnId) throws UsernameNotFoundException {
+//		// TODO Auto-generated method stub
+//		MemberDto memberDto = null;
+//		
+//		try {
+//			System.out.println("id =============>" +lgnId);
+//			memberDto =
+//		}
+//		return null;
+//	}
 	
 
 }

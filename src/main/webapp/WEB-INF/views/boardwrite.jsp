@@ -192,7 +192,56 @@ return true;
 </head>
 <body>
 
-		<form action="<%=request.getContextPath() %>/board/save" method="post" id="frm" encType="multipart/form-data">
+	<h1>QNA</h1>
+
+
+
+
+
+
+
+<form action="<%=request.getContextPath() %>/board/save" method="post" id="frm" encType="multipart/form-data">
+	<div class="row">
+		<div class="col-md-9 col-sm-4 col-xs-12 gutter">
+			<p>
+				<input type="submit" value="작성하기"/>
+			</p>
+
+			<div class="sales">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">제목</span> <input
+						type="text" class="form-control" placeholder="제목을 입력하세요"
+						aria-describedby="basic-addon1">
+
+
+
+				</div>
+
+
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">내용</span>
+					<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
+						style="width: 900px; height: 412px; min-width: 900px;">
+
+
+                                     </textarea>
+
+
+
+				</div>
+
+
+
+
+
+			</div>
+
+		</div>
+	</div>
+</form>
+
+
+	<%-- <form action="<%=request.getContextPath() %>/board/save" method="post" id="frm" encType="multipart/form-data">
             <table id="boardwrite">
                 <tr>
                 <td> 제목 </td>
@@ -227,7 +276,7 @@ return true;
             </table>
 	
 	<input type="button" id="savebutton" name="savebutton" value="제출">
-	</form>
+	</form> --%>
 
 
 </body>

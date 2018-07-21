@@ -2,9 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-
 	
+
+
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://127.0.0.1/myfirstweb?verifyServerCertificate=false&amp; useSSL=false"/>
@@ -12,22 +12,30 @@
 		<!-- jdbc:mysql://127.0.0.1/myfirstweb?useUnicode=true&amp;characterEncoding=UTF-8 -->
 		<!--  autoReconnect=true&useSSL=false -->
 		<property name="username" value="root"/>
+		
 		<property name="password" value="!djaak4124"/>
-		
+	</bean>
+	
+	<bean id="boardDao" class="com.min.www.dao.BoardDaoImpl">
 		
 	</bean>
-
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
+	
+	<bean id="boardService" class="com.min.www.Service.BoardServiceImpl">
+	
+	</bean>
+	
+		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:/mapper/**/*.xml" />
+		<property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
 	</bean>
 
-	<bean id="sqlSessionTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSession" />
 	</bean>
 	
-	
+	<bean id="fileUtils" class="com.min.www.util.FileUtils"></bean>
+	<bean id="timeUtil" class="com.min.www.util.TimeUtil"></bean>
+
+
+
 </beans>

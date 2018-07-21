@@ -6,10 +6,9 @@
 
 <tiles-definitions>
 	<definition name="layout" template="/WEB-INF/views/decorator/sampleLayout.jsp">
-		<put-attribute name="menu" value="/WEB-INF/views/decorator/layouts/menu.jsp" />
-		<put-attribute name="menuex" value="/WEB-INF/views/decorator/layouts/menuex.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/views/decorator/layouts/footer.jsp"/>
-		<put-attribute name="sidebar" value="/WEB-INF/views/decorator/layouts/sidebar.jsp"/>
+	<!-- 		<put-attribute name="top" value="/WEB-INF/views/top.jsp" />
+			<put-attribute name="bottom" value="/WEB-INF/views/bottom.jsp" /> -->
+
 
 		
 	</definition>

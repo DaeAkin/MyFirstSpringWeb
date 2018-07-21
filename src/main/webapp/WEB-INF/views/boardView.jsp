@@ -416,8 +416,96 @@
 <body>
 	<%MemberDto memberInfo= (MemberDto)session.getAttribute("memberInfo"); %>
 
+	<h1>QNA</h1>
 
-	<input type="hidden" id="board_id" name="board_id"
+
+
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-9 col-sm-4 col-xs-12 gutter">
+			<p>
+				<a href="#" id="writebutton" class="add-project" data-toggle="modal"
+					data-target="#add_project">작성하기</a>
+			</p>
+
+			<div class="sales">
+
+				<ul class="list-group">
+					<li class="list-group-item">
+
+						<div class="media">
+							<div class="media-left">
+								<a href="#"> <img class="media-object" src="<%=request.getContextPath() %>/resources/image/64x64.svg"
+									alt="회원사진">
+								</a>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">${boardView.writer }</h4>
+								<small>2018년6월18일에 작성됨</small>
+							</div>
+						</div>
+
+
+					</li>
+
+
+
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<p>#2312</p>
+						<h3>${boardView.title }</h3>
+
+					</li>
+					<li class="list-group-item">${boardView.content }</li>
+
+
+				</ul>
+
+				<ul class="list-group">
+
+					<li class="list-group-item" style="background: glay;"><span>댓글
+							4개</span></li>
+					<c:forEach var="replyList" items="${replyList }" varStatus="status">
+						<li class="list-group-item">
+							<div class="media" style="margin-bottom: 30px;">
+								<div class="media-left">
+									<a href="#"> <img class="media-object"
+									src="<%=request.getContextPath() %>/resources/image/64x64.svg"
+									<%-- 	src="<%=request.getContextPath() %>/resources/imageupload/${replyList.ORIGINALIMAGEURL }" --%>
+										alt="회원사진">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">${replyList.reply_writer }</h4>
+									<small>2018년6월18일에 작성됨</small>
+								</div>
+							</div> ${replyList.reply_content }
+						</li>
+					</c:forEach>
+
+
+
+				</ul>
+
+
+
+
+
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
+	<%-- <input type="hidden" id="board_id" name="board_id"
 		value="${boardView.id}" />
 	<div style="overflow : hidden;">
 		<br> <br>
@@ -482,8 +570,8 @@
 				 -->
 			</c:forEach>
 			<!--  
-		</table>
-		-->
+		</table> --%>
+		
 		<%if(memberInfo != null) { %>
 		
 		<div class="media">

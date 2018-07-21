@@ -142,6 +142,13 @@ public class BoardController {
 		return "boardList";
 
 	}
+	
+	
+	// 게시글 테스트
+	@RequestMapping(value="/board/listTest")
+	public String boardListTest() {
+		return "boardListTest";
+	}
 
 	// 게시글 상세 보기
 	@RequestMapping(value = "/board/view")

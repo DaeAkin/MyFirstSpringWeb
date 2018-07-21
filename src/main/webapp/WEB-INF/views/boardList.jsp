@@ -137,10 +137,72 @@
 
 </head>
 <body>
+	<h1>QNA</h1>
 
 
 
-	<form class="form-inline" id="frmSearch" action="<%=request.getContextPath()%>/board/list">
+
+
+
+	<form class="form-inline" id="frmSearch"
+		action="<%=request.getContextPath()%>/board/list">
+		<input type="hidden" id="startPage" name="startPage" value="1">
+		<!-- 페이징을 위한 hidden 타입 추가 -->
+		<input type="hidden" id="visiblePages" name="visiblePages" value="10">
+		<!-- 페이징을 위한 hidden타입 추가  -->
+
+		<div class="row">
+			<div class="col-md-9 col-sm-4 col-xs-12 gutter">
+				<p>
+	      <a href="/board/write"><button type="button" class="btn btn-default">작성하기</button></a>
+				</p>
+				<div class="sales">
+				<c:forEach var="boardList" items="${boardList }" varStatus="status">
+					<ul class="list-group">
+						<li class="list-group-item"><span class="badge">${boardList.writetime}
+								${boardList.writer }</span> <a name="writer"  content_id="${boardList.id }">${boardList.title }</a></li>
+					</ul>
+				</c:forEach>
+				
+					
+				</div>
+			</div>
+
+
+
+		</div>
+
+		<!-- row 끝 -->
+
+		<div class="container">
+			<nav>
+			<ul class="pagination">
+				<li><a href="#" aria-label="Previous"> <span
+						aria-hidden="true">&laquo;</span>
+				</a></li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
+			</nav>
+		</div>
+			<div id="search">
+		<select id="searchOption" name="searchOption">
+			<option value="title" selected>제목+내용</option> 
+			<option value="writerOnly"> 글쓴이 </option>
+		</select>
+		<input type="search" id="searchArea" name="searchArea"/>
+		<input type="submit" value="검색"/>
+		</div>
+	</form>
+
+
+
+	<%-- <form class="form-inline" id="frmSearch" action="<%=request.getContextPath()%>/board/list">
 		<input type="hidden" id="startPage" name="startPage" value="1">
 		<!-- 페이징을 위한 hidden 타입 추가 -->
 		<input type="hidden" id="visiblePages" name="visiblePages" value="30">
@@ -196,7 +258,7 @@
 		</div>
 
 	</form>
-
+ --%>
 
 
 
