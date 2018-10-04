@@ -1,20 +1,4 @@
-Skip to content
- 
-Search or jump to…
 
-Pull requests
-Issues
-Marketplace
-Explore
- @DaeAkin Sign out
-0
-0 0 DaeAkin/WebPj2
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-WebPj2/src/main/webapp/WEB-INF/views/MemberEdit.jsp
-52818d7  on 6 Jun
- donghyeonmin back up
-     
-122 lines (84 sloc)  4.38 KB
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -44,7 +28,7 @@ WebPj2/src/main/webapp/WEB-INF/views/MemberEdit.jsp
                         processData     :       false,
                         contentType     :       false,
                         success         :       function(data) {
-                            
+                           	alert();
                       
                       
                         
@@ -111,7 +95,7 @@ WebPj2/src/main/webapp/WEB-INF/views/MemberEdit.jsp
         <h3>회원정보 수정</h3>
           <hr>
     
-    <form id="memberCheck" action="<%=request.getContextPath()%>/member/check" method="POST">
+    <form id="memberCheck" action="<%=request.getContextPath()%>/member/check" method="POST" enctype="multipart/form-data" >
     <table id="memberC">
  
         <tr><td>아이디</td> <td><input type="text" id="id" name="id" length="12" readonly="readonly" value="${member.id }">   </td></tr>

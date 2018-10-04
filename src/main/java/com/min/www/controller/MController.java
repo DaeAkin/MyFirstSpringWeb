@@ -178,13 +178,18 @@ public class MController {
 //	}
 	
 	@RequestMapping(value="/member/image/upload")
+//	@ResponseBody
 	public void memberImageUpload(MultipartFile file,HttpSession session)  throws Exception{
 		
+		System.out.println("----- 사용자 이미지 업로드 -----");
 		byte[] fileData = file.getBytes();
 		String originalName = file.getOriginalFilename();
+		System.out.println("originalName :" + originalName);
 		
 		//session에 저장된 사용자 id값 가져오기.
 		String user = (String)session.getAttribute("loginuser");
+		
+		System.out.println("이미지 업로드 경로위치는 ? : " + imageUploadPath);
 		
 		//파일을 저장하는 Service
 		memberService.memberImageUpload(user,imageUploadPath, originalName, fileData);

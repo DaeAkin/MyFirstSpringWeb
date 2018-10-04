@@ -94,7 +94,7 @@
         <h3>회원정보 수정</h3>
           <hr>
     
-    <form id="memberCheck" action="<%=request.getContextPath()%>/member/check" method="POST">
+    <form id="memberCheck" action="<%=request.getContextPath()%>/member/check" method="POST" enctype="multipart/form-data">
     <table id="memberC">
  
         <tr><td>아이디</td> <td><input type="text" id="id" name="id" length="12" readonly="readonly" value="${member.id }">   </td></tr>
