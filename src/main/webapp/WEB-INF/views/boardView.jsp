@@ -706,6 +706,7 @@ return true;
 								<div class="media-body">
 									<h4 class="media-heading">${replyList.reply_writer }</h4>
 									<small>${replyList.register_datetime}에 작성됨</small>
+									<hr/>
 								</div>
 							</div> ${replyList.reply_content }
 						</li>

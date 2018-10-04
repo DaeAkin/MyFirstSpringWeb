@@ -31,6 +31,7 @@ import com.min.www.Service.member.MemberService;
 import com.min.www.dao.BoardDao;
 import com.min.www.dto.BoardAndAlertJoinDto;
 import com.min.www.dto.BoardReplyDto;
+import com.min.www.dto.member.MemberDto;
 import com.min.www.util.FileUtils;
 import com.min.www.util.TimeUtil;
 
@@ -362,9 +363,16 @@ public class BoardController {
 	public Object boardReplySave(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) {
 		System.out.println("댓글 AJAX 호출()");
 		HttpSession session = request.getSession();
-
-		String nickname = (String) session.getAttribute("nickname");
+	
+		String id = (String) session.getAttribute("loginuser");
+		
+		MemberDto replyUser = memberService.getMember(id);
+		
+		String nickname = replyUser.getNickname();
+		
+		
 		paramMap.put("reply_writer", nickname);
+		System.out.println("댓글단 사람 닉네임은 :" +nickname);
 		// 리턴 값
 		Map<String, Object> retVal = new HashMap<String, Object>();
 
