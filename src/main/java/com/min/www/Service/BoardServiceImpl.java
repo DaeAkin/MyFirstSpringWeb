@@ -8,37 +8,46 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.min.www.dao.BoardDao;
+import com.min.www.dao.BoardDaoImpl;
 import com.min.www.dto.BoardDto;
+import com.min.www.dto.BoardOptionsDto;
 import com.min.www.dto.BoardReplyDto;
 import com.min.www.util.FileUtils;
 import com.min.www.util.TimeUtil;
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
 
-	@Resource(name="boardDao")
+	@Autowired
 	private BoardDao boardDao;
 	
-	@Resource(name="fileUtils")
+	@Autowired
 	private FileUtils FileUtils;
 	
-	@Resource(name="timeUtil")
+	@Autowired
 	private TimeUtil timeUtil;
+	
+	
 	
 
 
 	public int getContentCnt(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
+
+		System.out.println("----- BoardService -----");
+		System.out.println("왜 오류지?>?" +  boardDao.getContentCtn(paramMap));
 		return boardDao.getContentCtn(paramMap);
 	}
 
 	@Override
 	public List<BoardDto> getContentList(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
-		
-		return boardDao.getContentList(paramMap);
+		List<BoardDto> resultDto = boardDao.getContentList(paramMap);
+		return TimeUtil.timeChange(resultDto);
 	}
 
 	@Override
@@ -50,7 +59,9 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int regReply(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
-		return boardDao.regReply(paramMap);
+			
+			
+			return boardDao.regReply(paramMap);
 	}
 
 	@Override
@@ -113,10 +124,18 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int regContent(Map<String, Object> paramMap ,HttpServletRequest request) throws Exception{
 		// TODO Auto-generated method stub
+		System.out.println("--- regContent() ---");
+		boardDao.regContent(paramMap); //테스트시에만
+		
 		HttpSession session = request.getSession();
+		
 		String writer = (String)session.getAttribute("nickname");
+		System.out.println("??");
+		if(writer == null) {
+			writer = "테스트용";
+		}
 		paramMap.put("writer", writer);
-		boardDao.regContent(paramMap);
+		
 		System.out.println(paramMap.get("id"));
 		System.out.println("게시물 내용 : " +paramMap.get("smarteditor"));
 		System.out.println("게시물 등록 중");
@@ -126,7 +145,7 @@ public class BoardServiceImpl implements BoardService{
 //			boardDao.insertFile(list.get(i));
 //		}
 		
-		return 0;
+		return boardDao.regContent(paramMap);
 	}
 
 	/*
@@ -189,8 +208,88 @@ public class BoardServiceImpl implements BoardService{
 	public void regAlert(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 		
-		boardDao.insertAlert(paramMap);
+		boardDao.insertReplyAlert(paramMap);
 	}
+
+	// 게시판 전부삭제
+	@Override
+	public void deleteAllBoard() {
+		// TODO Auto-generated method stub
+		boardDao.deleteAllBoard();
+		
+	}
+	// 게시판 전체 게시물 갯수
+	@Override
+	public int getBoardCnt() {
+		// TODO Auto-generated method stub
+		return boardDao.getBoardCnt();
+	}
+
+	@Override
+	public void boardAgree() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertBoardAgree(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		boardDao.insertBoardAgree(paramMap);
+	}
+
+	@Override
+	public void deleteAllBoardAgree() {
+		// TODO Auto-generated method stub
+		boardDao.deleteAllBoardAgree();
+	}
+
+	@Override
+	public void getBoardAgreeAndDisagreeCnt() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BoardOptionsDto getBoardAgreeAndDisagreeOne(int boardid) {
+		// TODO Auto-generated method stub
+		return boardDao.getBoardAgreeAndDisagreeOne(boardid);
+	}
+
+	@Override
+	public Boolean isCanAgreeWithBoard(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		
+		BoardOptionsDto boardOptionsDto =
+				boardDao.isCanAgreeWithBoard(paramMap);
+		
+		if(boardOptionsDto == null) {
+			return true;
+		} else {
+			return false;
+		}
+	
+	}
+
+	@Override
+	public void checkingTheBoardReply(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		
+		boardDao.checkingTheBoardReply(paramMap);
+	}
+	
+	
+
+//	@Override
+//	public void likeBoardAgree(Map<String, Object> paramMap) {
+//		// TODO Auto-generated method stub
+//		boardDao.likeBoardAgree(paramMap);
+//	}
+//
+//	@Override
+//	public void dislikeBoardDisagree(Map<String, Object> paramMap) {
+//		// TODO Auto-generated method stub
+//		boardDao.dislikeBoardDisagree(paramMap);
+//	}
 	
 	
 

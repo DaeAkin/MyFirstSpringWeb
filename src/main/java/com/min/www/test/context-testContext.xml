@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop
+              			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+              			http://www.springframework.org/schema/tx
+              			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	
-
-
+	<!--  트랜잭션 설정  -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+	
+	</tx:advice> 
+	<!-- < bean id="webSocketAdvice" 
+		class="com.min.www.Service.webSocket.WebSocketAdvice"/> -->
+	
+	<bean id="alertAdvice"
+		class="com.min.www.Service.alert.AlertAdvice"/>
+	<!--  AOP 설정 -->
+	<bean id="sysoutAdvice" class="com.min.www.Service.SysoutAdvice">
+	</bean>
+	<aop:config>
+		<aop:advisor advice-ref="transactionAdvice" pointcut="bean(*Service)"/>
+		<!-- <aop:advisor advice-ref="sysoutAdvice" pointcut="bean(*Service)"/> -->
+		<!-- <aop:advisor advice-ref="sysoutAdvice" pointcut="bean(boardController)"/>  -->
+ 	<!--  <aop:advisor advice-ref="webSocketAdvice" pointcut="bean(boardController)"/>  -->
+		
+	</aop:config> 
+	
+	<!--  어드바이스 빈 설정 -->
+	 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dataSource" />
+	</bean> 
+	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.0.0.1/myfirstweb?verifyServerCertificate=false&amp; useSSL=false"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1/myfirstwebtest?verifyServerCertificate=false&amp; useSSL=false"/>
 		
 		<!-- jdbc:mysql://127.0.0.1/myfirstweb?useUnicode=true&amp;characterEncoding=UTF-8 -->
 		<!--  autoReconnect=true&useSSL=false -->
@@ -17,25 +47,48 @@
 	</bean>
 	
 	<bean id="boardDao" class="com.min.www.dao.BoardDaoImpl">
-		
+		<property name="sqlSession" ref="sqlSessionTemplate"/>
 	</bean>
 	
 	<bean id="boardService" class="com.min.www.Service.BoardServiceImpl">
-	
+	</bean>
+	<!-- 스태틱 클래스는 $ 로 -->
+<!-- 	<bean id="testBoardService" class="com.min.www.test.TransactionTest$TestBoardService"
+	parent="boardService">
+	</bean> -->
+	<bean id="testBoardService" class="com.min.www.test.BoardServiceTest$TestBoardServiceImpl"
+	parent="boardService">
 	</bean>
 	
-		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
+		<property name="mapperLocations"
+			value="classpath:/mapper/**/*.xml" />
 	</bean>
 
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSession" />
 	</bean>
 	
+	<bean id="webSocketReplyService" 
+		class="com.min.www.Service.webSocket.WebSocketReplyServiceImpl"/>
+	<bean id="WebSocketReplyDao"
+		class="com.min.www.dao.webSocket.WebSocketReplyDaoImpl"/>
+
+ 
 	<bean id="fileUtils" class="com.min.www.util.FileUtils"></bean>
 	<bean id="timeUtil" class="com.min.www.util.TimeUtil"></bean>
 
-
+	
+	<bean id="memberService" class="com.min.www.Service.member.MemberServiceImpl">
+	</bean>
+	
+	<bean id="memberDao" class="com.min.www.dao.member.MemberDaoImpl"></bean>
+	<!-- <bean id="uploadPath" class="java.lang.String"></bean> -->
+	
+	<bean id="paramFactory" class="com.min.www.util.ParamFactory"></bean>
 
 </beans>

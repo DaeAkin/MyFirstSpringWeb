@@ -12,7 +12,7 @@ public interface MemberDao {
 	
 	List<MemberDto> getMemberlist(Map<String,Object> paramMap);
 	
-	MemberDto getMember(Map<String,Object> paramMap,HttpServletRequest request);
+	MemberDto getMember(String id);
 	
 	int insertMember(Map<String,Object> paramMap);
 	
@@ -23,5 +23,9 @@ public interface MemberDao {
 	int memberNickCheck(Map<String, Object> paramMap);
 	
 	void insertMemberImage(Map<String, Object> paramMap);
+	
+	void deleteAllMember();
+	
+	int selectMemberCnt();
 
 }

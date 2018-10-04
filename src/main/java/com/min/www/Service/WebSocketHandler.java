@@ -13,11 +13,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.min.www.dao.BoardDao;
 import com.min.www.dto.BoardReplyDto;
 import com.min.www.util.BoardReplyAlter;
-import com.min.www.util.TimeUtil;
 
 @Service
 public class WebSocketHandler extends TextWebSocketHandler{

@@ -14,7 +14,7 @@ public interface MemberService {
 	
 	List<MemberDto> getMemberlist(Map<String,Object> paramMap);
 	
-	MemberDto getMember(Map<String,Object> paramMap,HttpServletRequest request);
+	MemberDto getMember(String id);
 	
 	int insertMember(Map<String,Object> paramMap);
 	
@@ -22,7 +22,7 @@ public interface MemberService {
 	
 	int memberIdCheck(Map<String, Object> paramMap);
 	
-	int memberLogin(Map<String, Object>	paramMap,HttpServletRequest request,Model model);
+	int memberLogin(Map<String, Object>	paramMap);
 	
 	int memberNickCheck(Map<String, Object> paramMap);
 	

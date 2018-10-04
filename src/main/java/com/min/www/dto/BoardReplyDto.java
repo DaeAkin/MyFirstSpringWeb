@@ -26,6 +26,16 @@ public class BoardReplyDto {
 			,String reply_content,String reply_writer,String reply_password,Date register_datetime,
 			String IMAGEURL,String ORIGINALIMAGEURL) {
 		// TODO Auto-generated constructor stub
+		this.reply_id = reply_id;
+		this.board_id = board_id;
+		this.parent_id = parent_id;
+		this.depth = depth;
+		this.reply_content = reply_content;
+		this.reply_writer = reply_writer;
+		this.reply_password = reply_password;
+		this.register_datetime = register_datetime;
+		this.IMAGEURL = IMAGEURL;
+		this.ORIGINALIMAGEURL = ORIGINALIMAGEURL;
 	}
 	
 	

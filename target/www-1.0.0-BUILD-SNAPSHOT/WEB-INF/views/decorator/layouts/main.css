@@ -1,0 +1,197 @@
+﻿  
+        
+        .container {
+            width: 1600px;
+            height: 100%;
+            margin: 0 auto 0 auto;
+            border: 1px solid black;
+        }
+        
+        
+        
+        
+        .nav1 {
+            margin-bottom: 5px;
+            height: 10px;
+            
+        }
+        
+        .nav1 ul li{
+            display: inline-block;
+            font-size: 10pt;
+            float: right;
+            margin: 0px 5px 0px 5px;
+            list-style-type: none;
+        }
+        
+        .nav2 {
+            
+           text-align: center;
+       
+            color: black;
+            height: 50px;
+        }
+        
+        .nav2 ul li {
+            list-style-type: none;
+            display: inline-block;
+            margin: 10px 100px 10px 0px;
+            
+            
+         
+        }
+        
+        .nav2 img {
+            height: 30px;
+            width: 30px;
+        }
+        
+        
+   
+     
+        /* dropbox css */
+        
+        
+        
+        
+        .dropbox{
+            display: none;
+            position: absolute;
+            
+        }
+        
+        dropbox li {
+          
+        }
+        
+                
+        .nav2 ul li:hover ul{
+            display: block;
+            border: 1px solid red;  
+            width: 200px;
+        }
+        
+        
+        
+        
+        /* dropbox css end */
+        
+        
+
+        /* start sidebar area */
+        
+        
+        
+        
+             .sidebar {
+            display: inline-block;
+            margin: 10px 10px 10px 25px;
+            width: 20%;
+            float:  right;
+            border: 1px solid black;
+            height: 1200px;
+            
+        }
+        
+        
+           
+        .commuitybest {
+            margin: 30px;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        /* end sidebar area */
+        
+        /* 컨텐트영역 시작 영역 */
+        
+        .content {
+             display: inline-block;
+            margin: 10px 10px 10px 25px;
+            width:  75%;
+            float: left;
+            border: 1px solid black;
+            height:  1200px;
+                
+        }
+        
+        
+        .box1 {
+            display: inline-block; /* span은 기본적으로 내부가 자기의 사이즈가 되므로 width 속성을 안갖음. inline-block을 줘야흠*/
+            width: 60%;
+            height: 200px;
+            border: 1px solid black;
+            margin: 40px;
+            
+            
+        }
+        
+        
+        .ad {
+           
+            display:  inline-block;
+            width : 300px;
+            height: 150px;
+            border: 1px solid black;
+        }
+        
+        
+        .box2 {
+            
+            display: inline-block;
+             margin: 40px;
+            width: 400px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        
+        
+        
+        
+        
+        /* 컨텐트 영역 끝 */
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* 푸터 시작 */
+        .footer {
+            clear: both;
+            
+        }
+        
+        .footer ul{
+            
+            height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            
+        }
+        
+        .footer ul li {
+            display: inline-block;
+        }
+        
+        
+        
+        
+        /* hr */
+        
+        #my-hr {
+            height: 2px;
+            background: #ccc;
+        }
+        

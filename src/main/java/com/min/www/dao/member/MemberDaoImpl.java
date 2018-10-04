@@ -25,9 +25,9 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	
-	public MemberDto getMember(Map<String, Object> paramMap, HttpServletRequest request) {
+	public MemberDto getMember(String id) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("getMember", paramMap);
+		return sqlSession.selectOne("getMember", id);
 	}
 
 	@Override
@@ -58,6 +58,19 @@ public class MemberDaoImpl implements MemberDao{
 	public void insertMemberImage(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 		 sqlSession.insert("insertImage", paramMap);
+	}
+
+	@Override
+	public void deleteAllMember() {
+		// TODO Auto-generated method stub
+		sqlSession.delete("deleteAllMember");
+		
+	}
+
+	@Override
+	public int selectMemberCnt() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("selectMemberCnt");
 	}
 	
 	

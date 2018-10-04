@@ -7,19 +7,22 @@ public class BoardDto {
 	private String writetime;
 	private String content;
 	private int hit;
+
 	
 	public BoardDto() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BoardDto(int id,String title, String writer,String writetime,String content,int hit) {
+	public BoardDto(int id,String title, String writer,
+			String writetime,String content,int hit) {
 		// TODO Auto-generated constructor stub
-		id =this.id;
-		title = this.title;
-		writer = this.writer;
-		writetime = this.writetime;
-		hit = this.hit;
-		content = this.content;
+		this.id = id ;
+		this.title = title ;
+		this.writer = writer ;
+		this.writetime = writetime ;
+		this.hit = hit ;
+		this.content = content ;
+	
 	}
 	
 	
@@ -70,6 +73,7 @@ public class BoardDto {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
 
+
+	
 }

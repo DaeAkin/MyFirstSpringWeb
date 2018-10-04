@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.min.www.dto.BoardAndAlertJoinDto;
 import com.min.www.dto.BoardDto;
+import com.min.www.dto.BoardOptionsDto;
 import com.min.www.dto.BoardReplyDto;
 import com.min.www.util.TimeUtil;
 
@@ -17,20 +19,30 @@ public class BoardDaoImpl implements BoardDao{
 	@Autowired
 	private SqlSession sqlSession;
 	 
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+	/* SqlSession setter를 명시해줬음에도 불구하고 DI가 되질 않고 
+		@Autowired을 명시해줘야 DI가 되는걸까? XML오류인가? 
+		
+	 */
+
 
 
 
 	@Override
 	public int getContentCtn(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
+		System.out.println("sql" + sqlSession);
 		return sqlSession.selectOne("selectContentCnt", paramMap);
 	}
 
 	@Override
 	public List<BoardDto> getContentList(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
-		List<BoardDto> resultDto = sqlSession.selectList("selectContent", paramMap);
-		return TimeUtil.TimeUtilChanger(resultDto);
+		
+		return sqlSession.selectList("selectContent", paramMap);
 	
 	}
 
@@ -72,6 +84,8 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public int regContent(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
+		// 알림용 DB에도 추가해주기. 
+			
 		return sqlSession.insert("insertContent",paramMap);
 	}
 	@Override
@@ -136,10 +150,161 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectList("selectSocketReply",paramMap);
 	}
 
+
+
 	@Override
-	public void insertAlert(Map<String, Object> paramMap) {
-		sqlSession.insert("insertAlert",paramMap);
+	public void deleteAllContent() {
+		// TODO Auto-generated method stub
+		System.out.println("check");
+	sqlSession.delete("deleteAllContent");
+	
+	}
+
+
+
+
+	@Override
+	public void testSys() {
+		// TODO Auto-generated method stub
+		sqlSession.insert("test");
+	}
+
+
+
+
+	@Override
+	public BoardDto getBoardOne(int id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBoardOne",id);
+	}
+
+
+
+
+	@Override
+	public void deleteAllReply() {
+		// TODO Auto-generated method stub
+		
+		sqlSession.delete("deleteAllReply");
+	}
+
+
+
+
+	@Override
+	public BoardReplyDto getBoardReplyOne(String reply_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getReplyOne",reply_id);
+	}
+
+	@Override
+	public void deleteAllBoard() {
+		// TODO Auto-generated method stub
+		
+		sqlSession.delete("deletelAllBoard");
 		
 	}
+
+	@Override
+	public int getBoardCnt() {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne("getBoardCnt");
+	}
+
+	@Override
+	public void boardAgree(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void boardDisgree(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertBoardAgree(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("insertBoardAgree",paramMap);
+		
+	}
+
+	@Override
+	public BoardOptionsDto getBoardAgreeAndDisagreeOne(int boardid) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBoardAgreeAndDisagreeOne",
+				boardid);
+	}
+
+	@Override
+	public void deleteAllBoardAgree() {
+	
+		
+		sqlSession.delete("deleteAllBoardAgree");
+		
+	}
+
+	@Override
+	public BoardOptionsDto isCanAgreeWithBoard(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("isCanAgreeWithBoard" , paramMap);
+	}
+
+	@Override
+	public int getBoardReplyCnt() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBoardReplyCnt");
+		
+	}
+
+	@Override
+	public int boardAlertCnt() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("boardAlertCnt");
+	}
+
+	@Override
+	public void deleteAllBoardAlert() {
+		// TODO Auto-generated method stub
+			sqlSession.delete("deleteAllBoardAlert");
+	}
+
+	@Override
+	public void checkingTheBoardReply(int alertid) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.update("checkingTheBoardReply",alertid);
+		
+	
+	}
+
+	@Override
+	public List<BoardAndAlertJoinDto> getAllBoardReplys(String writer) {
+		// TODO Auto-generated method stub
+	
+		return 	sqlSession.selectList("getAllBoardReplys", writer);
+	}
+
+	@Override
+	public void insertReplyAlert(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("insertReplyAlert",paramMap);
+	}
+
+//	@Override
+//	public void likeBoardAgree(Map<String, Object> paramMap) {
+//		// TODO Auto-generated method stub
+//		sqlSession.insert("likeBoardAgree",paramMap);
+//	}
+//
+//	@Override
+//	public void dislikeBoardDisagree(Map<String, Object> paramMap) {
+//		// TODO Auto-generated method stub
+//		sqlSession.insert("dislikeBoardDisagree",paramMap);
+//		
+//	}
+	
 	
 }

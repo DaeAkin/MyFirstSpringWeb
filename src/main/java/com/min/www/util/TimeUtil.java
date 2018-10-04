@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hamcrest.StringDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,17 +36,63 @@ import com.mysql.fabric.xmlrpc.base.Data;
 public class TimeUtil {
 
 
+
+	
+	public static List<BoardDto> timeChange(List<BoardDto> resultDto) {
+	
+		long calDay = 0;
+		try {
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+			
+			
+			
+			String today = getToday();
+			
+			Date todays =format.parse(getToday());
+
+			// mysql 게시물 오늘날짜이면 시간으로 표시, 아니면 날짜로만 표시.
+			for (int i = 0; i < resultDto.size(); i++) {
+				if (resultDto.get(i).getWritertime().substring(0, 10).equals(today)) {
+					System.out.println("시간 변환.");
+					resultDto.get(i).setWritertime(resultDto.get(i).getWritertime().substring(11, 16));
+
+				} else {
+					
+					long calData =  todays.getTime() - format.parse(resultDto.get(i).getWritertime()).getTime();
+					
+					calDay = calData / (24*60*60*1000);
+					
+					calDay = Math.abs(calDay);
+					
+				
+					resultDto.get(i).setWritertime(String.valueOf(calDay) + "일전");
+				}
+
+			}
+			
+		
+			
+			
+	
+			
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return resultDto;
+	
+	}
+	
+	
 	/*
 	 * 게시물 시간 출력 함수 만약 오늘 날짜면 시간만 출력 된다. 오늘 날짜가 아니면 날짜만 출력 되기.
 	 * 
 	 */
 	public static List<BoardDto> TimeUtilChanger(List<BoardDto> resultDto) {
 
-		System.out.println("시간 씻기기.");
-		// 시간 가져오기.
-		Data data = new Data();
-		SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-
+	
 		String today = getToday();
 
 		// mysql 게시물 오늘날짜이면 시간으로 표시, 아니면 날짜로만 표시.

@@ -28,7 +28,7 @@
 
 </select>
 
-<select id="getMember" parameterType="java.util.HashMap" resultType="com.min.www.dto.member.MemberDto">
+<select id="getMember" parameterType="String" resultType="com.min.www.dto.member.MemberDto">
 	select
 		id,
 		password,
@@ -66,4 +66,15 @@
 	IMAGEURL = #{IMAGEURL},
 	ORIGINALIMAGEURL = #{ORIGINALIMAGEURL}
 </insert>
+<delete id="deleteAllMember">
+	delete from member;
+</delete>
+
+<select id="selectMemberCnt" resultType="int">
+select
+			count(Mnumber)
+		from
+			member;
+</select>
+
 </mapper>

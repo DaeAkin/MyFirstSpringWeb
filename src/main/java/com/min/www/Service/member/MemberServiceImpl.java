@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -19,7 +20,7 @@ import com.min.www.util.FileUtils;
 @Service("MemberService")
 public class MemberServiceImpl implements MemberService{
 	
-	@Resource(name="MemberDao")
+	@Autowired
 	MemberDao memberDao;
 	
 	@Resource
@@ -35,12 +36,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberDto getMember(Map<String, Object> paramMap,HttpServletRequest request) {
+	public MemberDto getMember(String id) {
 		// TODO Auto-generated method stub
 		// 아이디 비밀번호 꺼내와서 if넣어주기.
 		
 		
-		return memberDao.getMember(paramMap,request);
+		return memberDao.getMember(id);
 	}
 
 	@Override
@@ -69,12 +70,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int memberLogin(Map<String, Object> paramMap,HttpServletRequest request,Model model) {
+	public int memberLogin(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 		int result = 0;
-		HttpSession session = request.getSession();
 		
-		MemberDto memberDto = memberDao.getMember(paramMap,request);
+		
+		MemberDto memberDto = memberDao.getMember((String)paramMap.get("id"));
 		
 		
 		Map<String, Object> memberMap = new HashMap<>();
@@ -86,16 +87,13 @@ public class MemberServiceImpl implements MemberService{
 				memberDto.getPassword().equals(paramMap.get("password")) ) {
 			//request 영역에 넣어주기. 
 			//id랑 password는 이미 request 영역에 있다.
-			session.setAttribute("nickname", memberDto.getNickname());
 			System.out.println("아이디 비밀번호 인증 완료");
 			System.out.println("인증된 닉네임 : + " 	+ memberDto.getNickname());
 			memberMap.put("id", memberDto.getId());
 			memberMap.put("nickname", memberDto.getNickname());
 			memberMap.put("email", memberDto.getEmail());
 			memberMap.put("IMAGEURL", memberDto.getImageurl());
-			model.addAttribute("check","check");
-			model.addAllAttributes(memberMap);
-			System.out.println(model.containsAttribute("IMAGEURL"));
+			
 			
 			
 			

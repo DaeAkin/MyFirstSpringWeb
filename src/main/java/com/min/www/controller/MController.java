@@ -107,15 +107,15 @@ public class MController {
 		
 		return "loginform";
 	}
-	@RequestMapping(value="/member/login")
-	@ResponseBody
-	public Object memberLogin(@RequestParam Map<String, Object> paramMap,  HttpSession session,HttpServletRequest request,
+	@RequestMapping(value="/member/login", method = RequestMethod.POST)
+//	@ResponseBody
+	public String memberLogin(@RequestParam Map<String, Object> paramMap,  HttpSession session,HttpServletRequest request,
 			Model model) {
 	
 		Map<String, Object> retVal = new HashMap<String, Object>();
 		
 		//1. sql문에 대입하여 아이디 확인 작업 서비스에서 처리.
-		int reVal = memberService.memberLogin(paramMap,request,model);
+		int reVal = memberService.memberLogin(paramMap);
 		
 		//로그인 했을 때 닉네임으로 뜨게하고싶으면
 		//request에 넣어줘야함 가져와서 
@@ -126,7 +126,7 @@ public class MController {
 		if(reVal != 0) {
 			session.setAttribute("loginuser", paramMap.get("id"));
 			
-			MemberDto memberInfo = memberService.getMember(paramMap, request);
+			MemberDto memberInfo = memberService.getMember((String)paramMap.get("id"));
 			// 로그인 객체 세션 생성
 			session.setAttribute("memberInfo", memberInfo);
 			
@@ -148,7 +148,7 @@ public class MController {
 		
 	 
 		
-		return retVal;
+		return "redirect:/board/list";
 	}
 	@RequestMapping(value="/member/logout")
 	public String memberLogout(HttpSession session) {
@@ -161,12 +161,12 @@ public class MController {
 	public String memberEdit(HttpServletRequest request,Model model) {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("loginuser");
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("id", id);
-		// request 불 필요.
-		model.addAttribute("member", memberService.getMember(paramMap, request));
-		
-		return "MemberEdit";
+//		Map<String, Object> paramMap = new HashMap<>();
+////		paramMap.put("id", id);
+		// 
+		model.addAttribute("member", memberService.getMember(id));
+		System.out.println(" ---- /member/edit ----");
+		return "memberEdits";
 	}
 	
 //	@ResponseBody

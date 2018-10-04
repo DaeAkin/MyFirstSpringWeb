@@ -9,7 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @SuppressWarnings("serial")
-public class MemberDto implements UserDetails{
+public class MemberDto{
 	String Mnumber;
 	String id;
 	String nickname;
@@ -17,7 +17,7 @@ public class MemberDto implements UserDetails{
 	String email;
 	String imageurl;
 	String ORIGINALIMAGEURL;
-	private List<String> roles;
+//	private List<String> roles;
 	
 	
 	
@@ -28,13 +28,13 @@ public class MemberDto implements UserDetails{
 	
 	public MemberDto(String Mnumber,String id,String nickname, String password, String email, String imageurl,String ORIGINALIMAGEURL) {
 		// TODO Auto-generated constructor stub
-		Mnumber = this.Mnumber;
-		nickname = this.nickname;
-		id = this.id;
-		password = this.password;
-		email = this.email;
-		imageurl = this.imageurl;
-		ORIGINALIMAGEURL = this.ORIGINALIMAGEURL;
+		this.Mnumber = Mnumber;
+		this.nickname = nickname;
+		this.id = id;
+		this.password = password;
+		this.email = email;
+		this.imageurl = imageurl;
+		this.ORIGINALIMAGEURL = ORIGINALIMAGEURL;
 		
 	}
 	
@@ -45,60 +45,60 @@ public class MemberDto implements UserDetails{
 	 * (non-Javadoc)
 	 * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
 	 */
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		ArrayList<SimpleGrantedAuthority> grants = new ArrayList<>();
-		for(String role : roles) {
-			grants.add(new SimpleGrantedAuthority(role));
-		}
-		return grants;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return id;
-	}
-/*
- * 사용자 계정이 만료되었는지 여부를 나타
- * (non-Javadoc)
- * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
- */
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-/*
- * 사용자가 잠겨 있는지 여부를나타냄.
- * (non-Javadoc)
- * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
- */
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-/*
- * 사용자의 자격 증명(암호)가 만료되었는지 여부를 나타냄.
- * (non-Javadoc)
- * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
- */
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-/*
- * 사용자의 사용 가능 여부를 나타냄.
- * (non-Javadoc)
- * @see org.springframework.security.core.userdetails.UserDetails#isEnabled()
- */
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		ArrayList<SimpleGrantedAuthority> grants = new ArrayList<>();
+//		for(String role : roles) {
+//			grants.add(new SimpleGrantedAuthority(role));
+//		}
+//		return grants;
+//	}
+//
+//	@Override
+//	public String getUsername() {
+//		// TODO Auto-generated method stub
+//		return id;
+//	}
+///*
+// * 사용자 계정이 만료되었는지 여부를 나타
+// * (non-Javadoc)
+// * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
+// */
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		// TODO Auto-generated method stub
+//		return true;
+//	}
+///*
+// * 사용자가 잠겨 있는지 여부를나타냄.
+// * (non-Javadoc)
+// * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
+// */
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		// TODO Auto-generated method stub
+//		return true;
+//	}
+///*
+// * 사용자의 자격 증명(암호)가 만료되었는지 여부를 나타냄.
+// * (non-Javadoc)
+// * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
+// */
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//		// TODO Auto-generated method stub
+//		return true;
+//	}
+///*
+// * 사용자의 사용 가능 여부를 나타냄.
+// * (non-Javadoc)
+// * @see org.springframework.security.core.userdetails.UserDetails#isEnabled()
+// */
+//	@Override
+//	public boolean isEnabled() {
+//		// TODO Auto-generated method stub
+//		return true;
+//	}
 	
 	
 	

@@ -3,19 +3,73 @@
 <mapper namespace="com.min.www.Service.BoardDao"><!-- Class be looked -->
 	<insert id="insertContent" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="id">
 		insert into freeboard (
+			id, <!-- 서버구동시 삭제 id부분 -->
 			title,
 			writer,
 			content
+		
 		)values (
+		#{id},
 		#{title},
 		#{writer},
 		#{smarteditor}
 		
 		) on duplicate key update 
+		id = #{id},
 		title = #{title},
-		writer = '{writer}',
+		writer = #{writer},
 		content = #{smarteditor}
 	
+	</insert>
+	
+	<insert id="insertReplyAlert" 
+		parameterType="java.util.HashMap">
+		<!--서버에 구동시 useGeneratedKeys 사용해서 
+		reply_id 가져와야함. -->
+		insert into freeboardreplyalter (
+			board_id,
+			reply_id
+
+			) values (
+			#{board_id},
+			#{reply_id})
+		
+	
+	</insert>
+	
+	<!-- 댓글 -->
+	<insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" 
+	keyProperty="reply_id">
+	insert into freeboardreply (
+	<!-- 테스트시에 -->
+		
+	<!--  -->
+		board_id,
+		parent_id,
+		depth,
+		reply_content,
+		reply_writer
+
+
+	)values (
+	<!--  테스트시에 -->
+		
+		<!--  -->
+		#{board_id},
+		#{parent_id},
+		#{depth},
+		#{reply_content},
+		#{reply_writer}
+
+	
+	 ) on duplicate key update 
+	
+		
+		board_id = #{board_id},
+		parent_id = #{parent_id},
+		depth = #{depth},
+		reply_content = #{reply_content},
+		reply_writer = #{reply_writer}
 	</insert>
 	
 	<insert id="insertFile" parameterType="java.util.HashMap">
@@ -38,7 +92,7 @@
 		)
 		
 	</insert>
-	<select id="selectContentCnt" resultType="int" parameterType="java.util.HashMap">
+	<select id="selectContentCnt" resultType="int">
 		select
 			count(id)
 		from
@@ -71,40 +125,10 @@
 		where
 			id = #{id}
 	</select>
-	<insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id,board_id">
-	insert into freeboardreply (
-		board_id,
-		parent_id,
-		depth,
-		reply_content,
-		reply_writer
+	
+	
 
 
-	)values (
-		#{board_id},
-		#{parent_id},
-		#{depth},
-		#{reply_content},
-		#{reply_writer}
-
-	
-	 )
-	</insert>
-	<!--알림용 댓글  -->
-	<insert id="insertAlert" parameterType="java.util.HashMap">
-	INSERT 
-		INTO
-	freeboardreplyalter(
-		board_id,
-		reply_id
-	) VALUES(
-		#{board_id},
-		#{reply_id}
-	)
-	
-		
-	
-	</insert>
 	<select id="selectBoardReplyList" resultType="com.min.www.dto.BoardReplyDto" parameterType="java.util.HashMap">
 		select 
 		* 
@@ -194,6 +218,135 @@
 	<!-- id에 닉네임 넣을것 ex)대악인 -->
 	</select>
 	
+	<delete id="deleteAllContent" >
+delete from freeboard;
+	</delete> 
 	
-
+	<delete id="deleteAllReply">
+	delete from freeboardreply;
+	</delete>
+	<insert id="test">
+	insert into test  (name) values ('hi');
+	</insert>
+	
+	<select id="getBoardOne" resultType="com.min.www.dto.BoardDto" parameterType="java.lang.Integer">
+	select 
+		*
+	from
+		freeboard
+	where
+		id=#{id};
+	</select>
+	
+	<select id="getReplyOne" resultType="com.min.www.dto.BoardReplyDto" parameterType="java.lang.String">
+	select
+		*
+	from
+		freeboardreply
+	where
+		reply_id=#{reply_id};
+	
+	</select>
+	
+	<delete id="deletelAllBoard">
+		delete from freeboard;
+	</delete>
+	
+	<select id="getBoardCnt" resultType="int">
+		select
+			count(id)
+		from
+			freeboard;
+	</select>
+	
+	<!-- 게시물에 대한 좋아요 싫어요 가져오기 -->
+	<select id="getBoardAgreeAndDisAgree" resultType="com.min.www.dto.BoardOptionsDto">
+		select 
+			* 
+		from 
+			freeboard left outer join 
+		agreeanddisagree on 
+		freeboard.id = agreeanddisagree.boardid;
+	</select>
+	
+	<insert id="insertBoardAgree" parameterType="java.util.HashMap">
+	insert 
+		into agreeanddisagree
+	(boardid,agree,disagree) values
+		(#{boardid},#{agree},#{disagree})
+	
+	</insert>
+	
+	<select id="getBoardAgreeAndDisagreeOne" parameterType="int"
+		resultType="com.min.www.dto.BoardOptionsDto">
+		select 
+			*
+		from agreeanddisagree
+			where 
+		boardid=#{boardid}	
+	</select>
+	
+	<!--	조인한 좋아요 싫어요 테이블 전부삭제  --> 
+	<delete id="deleteAllBoardAgree">
+		delete from agreeanddisagree;
+	</delete>
+	
+	<!--  	// 게시글에 좋아요 , 싫어요를 눌렀는지 확인 -->
+	<select id="isCanAgreeWithBoard"
+		parameterType="java.util.HashMap" resultType="com.min.www.dto.BoardOptionsDto">
+	select 
+		* 
+	from
+		 agreeanddisagree 
+	where boardid = #{boardid} 
+		  and agree = #{agree}
+	 OR disagree= #{disagree}
+	</select>
+	
+	<select id="getBoardReplyCnt"
+		resultType="int">
+		select
+			count(reply_id)
+		from
+			freeboardreply;
+	</select>
+	
+	<select id="boardAlertCnt" resultType="int">
+		select
+			count(alert_id)
+		from
+			freeboardreplyalter;
+	</select>
+	
+	<delete id="deleteAllBoardAlert">
+		delete from freeboardreplyalter;
+	</delete>
+	
+	<update id="checkingTheBoardReply" parameterType="int" >
+		update 
+			freeboardreplyalter
+		set
+			isalerted = 1
+		where
+			alert_id = #{alertid}
+	</update>
+	
+	<select id="getAllBoardReplys" 
+		parameterType="String"
+			resultType="com.min.www.dto.BoardAndAlertJoinDto">
+			select 
+				* 
+			from 
+				freeboard  
+			left outer join 
+				freeboardreplyalter 
+			on
+				 freeboardreplyalter.board_id = freeboard.id 
+			 where 
+				 freeboard.writer = #{writer}
+			 
+	</select>
+	
+	
+	
 </mapper>
