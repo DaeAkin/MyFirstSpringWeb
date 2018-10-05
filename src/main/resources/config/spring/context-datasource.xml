@@ -43,5 +43,6 @@
 	<bean id="timeUtil" class="com.min.www.util.TimeUtil"></bean>
 
 
+	<bean id="paramFactory" class="com.min.www.util.ParamFactory"/>
 
 </beans>

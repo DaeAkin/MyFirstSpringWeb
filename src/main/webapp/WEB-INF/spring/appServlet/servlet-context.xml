@@ -81,12 +81,12 @@
 
 	<!-- 게시판파일업로드 경로 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="\Users\donghyeonmin\imageUpload\" />
+		<beans:constructor-arg value="/Users/donghyeonmin/imageUpload/" />
 
 	</beans:bean>
 	<!--  멤버 이미지 파일 업로드 경로  -->
 	<beans:bean id="imageUploadPath" class="java.lang.String">
-		<beans:constructor-arg value="\Users\mindonghyeon\profileImage\" />
+		<beans:constructor-arg value="/Users/mindonghyeon/profileImage/" />
 
 	</beans:bean>
 	

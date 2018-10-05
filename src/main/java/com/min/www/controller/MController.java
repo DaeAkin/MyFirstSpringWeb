@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.min.www.Exception.SessionloginUserInvalid;
 import com.min.www.Service.member.MemberService;
 import com.min.www.dto.member.MemberDto;
 import com.min.www.util.FileUtils;
+import com.min.www.util.ParamFactory;
 
 @Controller
 public class MController {
@@ -31,6 +33,11 @@ public class MController {
 	
 	@Resource
 	FileUtils fileUtils;
+	
+	@Autowired
+	ParamFactory paramFactory;
+	
+	
 	
 	@RequestMapping(value="/member")
 	public String member() {
@@ -157,8 +164,8 @@ public class MController {
 		return "redirect:/board/list"; //추후에 홈으로 수정.
 	}
 	
-	@RequestMapping(value="/member/edit") 
-	public String memberEdit(HttpServletRequest request,Model model) {
+	@RequestMapping(value="/member/editForm") 
+	public String memberEditForm(HttpServletRequest request,Model model) {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("loginuser");
 //		Map<String, Object> paramMap = new HashMap<>();
@@ -166,9 +173,38 @@ public class MController {
 		// 
 		model.addAttribute("member", memberService.getMember(id));
 		System.out.println(" ---- /member/edit ----");
-		return "memberEdits";
+		return "memberEditForm";
 	}
 	
+	
+	@RequestMapping(value="/member/edit")
+	public String memberEdit(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		String id = (String)session.getAttribute("loginuser");
+		
+		if(id == null) {
+			throw new SessionloginUserInvalid("세션이 만료되었습니다.");
+		}
+		
+		MemberDto memberDto = 
+				(MemberDto)session.getAttribute("memberInfo");
+		
+		//아이디,닉네임은 변경불가.
+		memberDto.setPassword(request.getParameter("password"));
+		memberDto.setEmail(request.getParameter("email"));
+		// 64x64는 s_로 시작함
+		memberDto.setImageurl("s_"+request.getParameter("uploadFile"));
+		memberDto.setORIGINALIMAGEURL(request.getParameter("uploadFile"));
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		paramMap = paramFactory.memberDtoFactory(memberDto);
+		
+		memberService.memberEdit(paramMap);
+		return "redirect:/board/list";
+		
+	}
 //	@ResponseBody
 //	@RequestMapping(value="/member/memberEdit")
 //	public void memberEdit(@RequestMapping Map<String,Object> paramMap) {

@@ -147,7 +147,7 @@
                                                  
                                                    
                                                    <div class="input-group">
-  														<a href="<%=request.getContextPath()%>/member/edit"  class="btn btn-default">내 정보</a> 
+  														<a href="<%=request.getContextPath()%>/member/editForm"  class="btn btn-default">내 정보</a> 
 													</div>
 
                                                     <div class="divider">

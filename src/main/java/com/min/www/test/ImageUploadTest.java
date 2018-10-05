@@ -16,9 +16,11 @@ import static org.mockito.Matchers.intThat;
 import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Matchers.isNull;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class ImageUploadTest {
@@ -40,10 +42,25 @@ public class ImageUploadTest {
 		
 		file = new File("/Users/mindonghyeon/imageUpload/" + "puppy.jpeg");
 		
-		InputStream is = new FileInputStream(file);
 		
-		byteFile = IOUtils.toByteArray(is);
 		
+//		FileInputStream is = new FileInputStream(file);
+//		BufferedReader br = new BufferedReader(new FileReader("/Users/mindonghyeon/imageUpload/" + "puppy.jpeg"));
+//        while(true) {
+//            String line = br.readLine();
+//            if (line==null) break;
+//            System.out.println(line);
+//        }
+		
+//		  int i = 0;
+//          while((i = is.read()) != -1) {
+//
+//
+//
+//		byteFile = IOUtils.toByteArray(is);
+		
+		
+          
 		
 		
 		
@@ -52,7 +69,18 @@ public class ImageUploadTest {
 	@Test
 	public void copyFile() throws IOException {
 		
-		File file2 = new File(uploadUrl+"pp.jpeg");
-		FileCopyUtils.copy(byteFile, file2);
+		BufferedReader br = new BufferedReader(new FileReader("/Users/mindonghyeon/imageUpload/" + "puppy.jpeg"));
+        while(true) {
+        	System.out.println("??");
+            String line = br.readLine();
+            if (line==null) break;
+            System.out.println(line);
+            
+        }
+		
+//		File file2 = new File(uploadUrl+"pp.jpeg");
+//		
+//		
+//		FileCopyUtils.copy(byteFile, file2);
 	}
 }

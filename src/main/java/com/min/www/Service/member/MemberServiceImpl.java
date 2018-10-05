@@ -134,6 +134,13 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Override
+	public void memberEdit(Map<String, Object> paramMap) {
+		
+		
+		
+	}
+
 
 	
 	

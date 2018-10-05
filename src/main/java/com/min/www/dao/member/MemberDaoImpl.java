@@ -72,6 +72,12 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("selectMemberCnt");
 	}
+
+	@Override
+	public void memberEdit(Map<String, Object> paramMap) {
+		sqlSession.update("memberEdit",paramMap);
+		
+	}
 	
 	
 

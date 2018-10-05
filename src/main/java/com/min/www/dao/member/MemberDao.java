@@ -27,5 +27,7 @@ public interface MemberDao {
 	void deleteAllMember();
 	
 	int selectMemberCnt();
+	
+	void memberEdit(Map<String, Object> paramMap);
 
 }

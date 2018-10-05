@@ -697,8 +697,9 @@ return true;
 						<li class="list-group-item">
 							<div class="media" style="margin-bottom: 30px;">
 								<div class="media-left">
+					
 									<a href="#"> <img class="media-object"
-									src="<%=request.getContextPath() %>/resources/image/64x64.svg"
+									src=/Users/mindonghyeon/profileImage/${replyList.IMAGEURL }"
 									<%-- 	src="<%=request.getContextPath() %>/resources/imageupload/${replyList.ORIGINALIMAGEURL }" --%>
 										alt="회원사진">
 									</a>
