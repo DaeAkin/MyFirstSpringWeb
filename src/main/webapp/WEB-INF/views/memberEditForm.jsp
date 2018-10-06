@@ -13,7 +13,8 @@
         <script>
             $(document).ready(function() {
                 //파일업로드 ajax 
-                $("#fileupload").on("click",function(event) {
+                
+                $("#uploadFile").on("change",function(event) {
                     event.preventDefault();
                     var formData = new FormData();
                     formData.append("file",$("#uploadFile")[0].files[0]);
@@ -104,7 +105,7 @@
         <tr> <td> 비밀번호 확인  </td><td><input type="password" id="password1" name="password1" placeholder="패스워드" oninput="checkPwd()" >  <span id="message"> </span></td>
         <tr> <td> e-mail</td><td> <input type="text" id="email" name="email" value="${member.email }"></td>
         </tr>
-        <tr><td>이미지</td><td><img src="<%=request.getContextPath() %>/resources/imageupload/${member.imageurl }" width="64px" heigh="64px"> 
+        <tr><td>이미지</td><td><img src="<%=request.getContextPath() %>/resources/profileImage/${member.imageurl }" width="64px" heigh="64px"> 
         
          <input type="file" name="uploadFile" id="uploadFile" accept="image/*"> 
          <input type="button" value="업로드" name="fileupload" id="fileupload" />

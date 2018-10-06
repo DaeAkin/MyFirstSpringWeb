@@ -699,7 +699,7 @@ return true;
 								<div class="media-left">
 					
 									<a href="#"> <img class="media-object"
-									src=/Users/mindonghyeon/profileImage/${replyList.IMAGEURL }"
+									src="<%=request.getContextPath() %>/resources/profileImage/${replyList.IMAGEURL }"
 									<%-- 	src="<%=request.getContextPath() %>/resources/imageupload/${replyList.ORIGINALIMAGEURL }" --%>
 										alt="회원사진">
 									</a>

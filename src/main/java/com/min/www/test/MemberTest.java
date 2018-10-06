@@ -59,34 +59,34 @@ public class MemberTest {
 	
 	
 	// session, request mock
-	MockHttpSession session;
-	MockHttpServletRequest request;
+//	MockHttpSession session;
+//	MockHttpServletRequest request;
 	
 	@Autowired
-	private WebApplicationContext wac;
-	private MockMvc mockMvc; 
+//	private WebApplicationContext wac;
+//	private MockMvc mockMvc; 
 	
 	@Before
 	public void setUp() {
 		member1 = new MemberDto(null, "testuser", "testNickname",
 				"testPwd", "test@email", "test@url", "test@url");
 		
-		session = new MockHttpSession();
-		request = new MockHttpServletRequest();
-		
-		//이곳에서 HomeController를 MockMvc 객체로 만듭니다.
-		
-		
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-		
+//		session = new MockHttpSession();
+//		request = new MockHttpServletRequest();
+//		
+//		//이곳에서 HomeController를 MockMvc 객체로 만듭니다.
+//		
+//		
+//		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+//		
 
 	}
 	
-	@After
-	public void clear() {
-		session.clearAttributes();
-		session = null;
-	}
+//	@After
+//	public void clear() {
+//		session.clearAttributes();
+//		session = null;
+//	}
 	
 	@Test
 	public void addAndGet() {
@@ -134,18 +134,35 @@ public class MemberTest {
 		
 		assertThat(reVal, is(not(0)));
 		
-		System.out.println("session - loginuser : " + session.getAttribute("loginuser"));
+//		System.out.println("session - loginuser : " + session.getAttribute("loginuser"));
 		
 		
 		
 	}
 	
 	@Test
-	public void memberControllerTest() throws Exception {
+	public void memberEditTest() {
+		member1.setPassword("1234");
 		
-		Map<String, Object> paramMap = new HashMap<>();
+		Map<String, Object> paramMap =
+				paramFactory.memberDtoFactory(member1);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/member/login"));
+		memberService.memberEdit(paramMap);
+		
+		
+		MemberDto DBResultMeberDto = 
+				memberService.getMember(member1.getId());
+		
+		assertThat(DBResultMeberDto.getPassword(),
+				is("1234"));
+	}
+	
+//	@Test
+//	public void memberControllerTest() throws Exception {
+//		
+//		Map<String, Object> paramMap = new HashMap<>();
+//		
+//		mockMvc.perform(MockMvcRequestBuilders.get("/member/login"));
 		// HomeController의 "/" 매핑으로 정의합니다.
 //		this.mockMvc.perform(get("/member/login"))
 //		// 처리 내용을 출력합니다.
@@ -155,6 +172,6 @@ public class MemberTest {
 //		// "serverTime"이라는 attribute가 존재해야 합니다.
 //		.andExpect(model().attributeExists("boardList"));
 		
-	}
+//	}
 
 }

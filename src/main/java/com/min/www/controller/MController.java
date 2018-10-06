@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.min.www.Exception.CreateSessionError;
 import com.min.www.Exception.SessionloginUserInvalid;
 import com.min.www.Service.member.MemberService;
 import com.min.www.dto.member.MemberDto;
@@ -137,6 +138,10 @@ public class MController {
 			// 로그인 객체 세션 생성
 			session.setAttribute("memberInfo", memberInfo);
 			
+			System.out.println("로그인 한사람 "  + memberInfo.getId());
+			
+			if(session.getAttribute("memberInfo") == null)
+				throw new CreateSessionError("세션 생성하는 과정에 오류가 생겼습니다.");
 			
 			retVal.put("code", "OK");
 			
@@ -183,13 +188,17 @@ public class MController {
 		
 		String id = (String)session.getAttribute("loginuser");
 		
-		if(id == null) {
-			throw new SessionloginUserInvalid("세션이 만료되었습니다.");
-		}
-		
 		MemberDto memberDto = 
 				(MemberDto)session.getAttribute("memberInfo");
 		
+		if(id == null || memberDto == null) {
+			throw new SessionloginUserInvalid("세션이 만료되었습니다.");
+		}
+		
+		
+		
+		System.out.println("기존 패스워드 : " + memberDto.getPassword());
+		System.out.println("변경된 패스워드 : " + request.getParameter("password"));
 		//아이디,닉네임은 변경불가.
 		memberDto.setPassword(request.getParameter("password"));
 		memberDto.setEmail(request.getParameter("email"));
