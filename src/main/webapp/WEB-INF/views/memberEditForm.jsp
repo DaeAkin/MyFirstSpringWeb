@@ -20,21 +20,26 @@
                     formData.append("file",$("#uploadFile")[0].files[0]);
                     
                     
+                   
+                    
                     $.ajax({
                         
                         type            :       "post",
                         url             :       "<%=request.getContextPath()%>/member/image/upload",
                         data            :       formData,
-                        dataType        :       "text",
+                        dataType        :       "json",
                         processData     :       false,
                         contentType     :       false,
                         success         :       function(data) {
-                           	alert();
-                      
-                      
-                        
-                            
-                       
+                     
+                    
+                    /* hidden으로 원래 이미지 , 크롭한 이미지 이름 적어주고 
+                       파일 올렸으면 그파일로 src 변경*/
+                        $("#profileImageView").attr("src","<%=request.getContextPath()%>/resources/profileImage/" + data.IMAGEURL) 
+                   		
+                        $("#ORIGINALIMAGEURL").val(data.ORIGINALIMAGEURL)
+                        $("#IMAGEURL").val(data.IMAGEURL)
+                   		
                         }
                     })
                     
@@ -105,10 +110,11 @@
         <tr> <td> 비밀번호 확인  </td><td><input type="password" id="password1" name="password1" placeholder="패스워드" oninput="checkPwd()" >  <span id="message"> </span></td>
         <tr> <td> e-mail</td><td> <input type="text" id="email" name="email" value="${member.email }"></td>
         </tr>
-        <tr><td>이미지</td><td><img src="<%=request.getContextPath() %>/resources/profileImage/${member.imageurl }" width="64px" heigh="64px"> 
-        
+        <tr><td>이미지</td><td><img id="profileImageView" src="<%=request.getContextPath() %>/resources/profileImage/${member.imageurl }" width="64px" heigh="64px"> 
+        <input type="hidden" id="IMAGEURL" name="IMAGEURL" value=""/>
+        <input type="hidden" id="ORIGINALIMAGEURL" name="ORIGINALIMAGEURL" value=""/>
          <input type="file" name="uploadFile" id="uploadFile" accept="image/*"> 
-         <input type="button" value="업로드" name="fileupload" id="fileupload" />
+        
         
          </td></tr>
 

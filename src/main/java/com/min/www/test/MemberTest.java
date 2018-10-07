@@ -69,7 +69,7 @@ public class MemberTest {
 	@Before
 	public void setUp() {
 		member1 = new MemberDto(null, "testuser", "testNickname",
-				"testPwd", "test@email", "test@url", "test@url");
+				"testPwd", "test@email", "testImageUrl", "testImageOriginalurl");
 		
 //		session = new MockHttpSession();
 //		request = new MockHttpServletRequest();
@@ -109,6 +109,7 @@ public class MemberTest {
 				memberService.getMember(member1.getId());
 		
 		assertThat(member1.getNickname(), is(DBResultMemberDto.getNickname()));
+		assertThat(member1.getImageurl(), is(member1.getImageurl()));
 	}
 	
 	
@@ -142,7 +143,10 @@ public class MemberTest {
 	
 	@Test
 	public void memberEditTest() {
+		//비밀번호 수정
 		member1.setPassword("1234");
+		//이미지위치 수정
+		member1.setImageurl("whereareyou");
 		
 		Map<String, Object> paramMap =
 				paramFactory.memberDtoFactory(member1);
@@ -155,6 +159,7 @@ public class MemberTest {
 		
 		assertThat(DBResultMeberDto.getPassword(),
 				is("1234"));
+		assertThat(DBResultMeberDto.getImageurl(), is(member1.getImageurl()));
 	}
 	
 //	@Test

@@ -26,7 +26,7 @@ public interface MemberService {
 	
 	int memberNickCheck(Map<String, Object> paramMap);
 	
-	void memberImageUpload(String user,String uploadPath, String originalName, byte[] fileData ) throws Exception;
+	Map<String, Object> memberImageUpload(String user,String uploadPath, String originalName, byte[] fileData ) throws Exception;
 	
 	void memberEdit(Map<String, Object> paramMap);
 }

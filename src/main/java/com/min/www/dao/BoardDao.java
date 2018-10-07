@@ -92,11 +92,13 @@ public interface BoardDao {
 	// 새로운 댓글 읽었으면 DB에서 읽음 처리
 	void checkingTheBoardReply(int alertid); 
 	
-	// 댓글 List로받아오기
-	List<BoardAndAlertJoinDto> getAllBoardReplys(String writer);
+	// 댓글 알람 가져오기 
+	List<BoardAndAlertJoinDto> getAlerts(String writer);
 	
 	//댓글 등록과 함께 reply DB에 집어 넣기 
 	void insertReplyAlert(Map<String,Object> paramMap);
+
+
 	
 	
 	// 사용자가 작성한 게시판번호들을 가져와서 댓글들만 가져와야함  조인 . 

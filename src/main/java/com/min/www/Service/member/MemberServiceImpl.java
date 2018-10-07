@@ -108,7 +108,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public void memberImageUpload(String user,String uploadPath, String originalName, byte[] fileData) throws Exception {
+	public Map<String, Object> memberImageUpload(String user,String uploadPath, String originalName, byte[] fileData) throws Exception {
 		// TODO Auto-generated method stub
 		//이미자가 경로된 위치 값을 리턴받는 변수
 		Map<String, String> returnedImageurl = new HashMap<>();
@@ -127,9 +127,10 @@ public class MemberServiceImpl implements MemberService{
 		
 		System.out.println("Fileutils에서 리턴 한 String 값 :" + savedPath);
 		//DB에 이미지가 저장된 url를 저장.
-		memberDao.insertMemberImage(paramMap);
+//		memberDao.insertMemberImage(paramMap);
 		
 		
+		return paramMap;
 		
 		
 	}

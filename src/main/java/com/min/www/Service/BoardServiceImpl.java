@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.min.www.dao.BoardDao;
 import com.min.www.dao.BoardDaoImpl;
+import com.min.www.dto.BoardAndAlertJoinDto;
 import com.min.www.dto.BoardDto;
 import com.min.www.dto.BoardOptionsDto;
 import com.min.www.dto.BoardReplyDto;
+import com.min.www.dto.member.MemberDto;
 import com.min.www.util.FileUtils;
 import com.min.www.util.TimeUtil;
 @Service("boardService")
@@ -60,7 +62,7 @@ public class BoardServiceImpl implements BoardService{
 	public int regReply(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 			
-			
+			regAlert(paramMap);
 			return boardDao.regReply(paramMap);
 	}
 
@@ -125,17 +127,17 @@ public class BoardServiceImpl implements BoardService{
 	public int regContent(Map<String, Object> paramMap ,HttpServletRequest request) throws Exception{
 		// TODO Auto-generated method stub
 		System.out.println("--- regContent() ---");
-		boardDao.regContent(paramMap); //테스트시에만
+//		boardDao.regContent(paramMap); //테스트시에만
 		
 		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto)session.getAttribute("memberInfo");
+		String writer = memberDto.getNickname();
 		
-		String writer = (String)session.getAttribute("nickname");
-		System.out.println("??");
 		if(writer == null) {
 			writer = "테스트용";
 		}
 		paramMap.put("writer", writer);
-		
+		boardDao.regContent(paramMap);
 		System.out.println(paramMap.get("id"));
 		System.out.println("게시물 내용 : " +paramMap.get("smarteditor"));
 		System.out.println("게시물 등록 중");
@@ -271,10 +273,16 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void checkingTheBoardReply(Map<String, Object> paramMap) {
+	public void checkingTheBoardReply(int alertId) {
 		// TODO Auto-generated method stub
 		
-		boardDao.checkingTheBoardReply(paramMap);
+		boardDao.checkingTheBoardReply(alertId);
+	}
+
+	@Override
+	public List<BoardAndAlertJoinDto> getAlerts(String writer) {
+		// TODO Auto-generated method stub
+		return boardDao.getAlerts(writer);
 	}
 	
 	

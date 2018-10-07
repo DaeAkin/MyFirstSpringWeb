@@ -199,12 +199,15 @@ public class MController {
 		
 		System.out.println("기존 패스워드 : " + memberDto.getPassword());
 		System.out.println("변경된 패스워드 : " + request.getParameter("password"));
+		
+		System.out.println("크롭 한 이미지 주소  : " +request.getParameter("IMAGEURL"));
+		System.out.println("원래 이미지 주소  : " +request.getParameter("ORIGINALIMAGEURL"));
 		//아이디,닉네임은 변경불가.
 		memberDto.setPassword(request.getParameter("password"));
 		memberDto.setEmail(request.getParameter("email"));
 		// 64x64는 s_로 시작함
-		memberDto.setImageurl("s_"+request.getParameter("uploadFile"));
-		memberDto.setORIGINALIMAGEURL(request.getParameter("uploadFile"));
+		memberDto.setImageurl(request.getParameter("IMAGEURL"));
+		memberDto.setORIGINALIMAGEURL(request.getParameter("ORIGINALIMAGEURL"));
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		
@@ -223,8 +226,8 @@ public class MController {
 //	}
 	
 	@RequestMapping(value="/member/image/upload")
-//	@ResponseBody
-	public void memberImageUpload(MultipartFile file,HttpSession session)  throws Exception{
+	@ResponseBody
+	public Map<String, Object> memberImageUpload(MultipartFile file,HttpSession session)  throws Exception{
 		
 		System.out.println("----- 사용자 이미지 업로드 -----");
 		byte[] fileData = file.getBytes();
@@ -236,9 +239,13 @@ public class MController {
 		
 		System.out.println("이미지 업로드 경로위치는 ? : " + imageUploadPath);
 		
+		Map<String, Object> paramMap = new HashMap<>();
 		//파일을 저장하는 Service
-		memberService.memberImageUpload(user,imageUploadPath, originalName, fileData);
+		paramMap = 
+				memberService.memberImageUpload(user,imageUploadPath, originalName, fileData);
 		
+		
+		return paramMap;
 		
 	}
 

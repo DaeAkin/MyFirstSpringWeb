@@ -45,7 +45,7 @@ public class ParamFactory {
 		paramMap.put("nickname", memberDto.getNickname());
 		paramMap.put("password", memberDto.getPassword());
 		paramMap.put("email", memberDto.getEmail());
-		paramMap.put("imageurl", memberDto.getImageurl());
+		paramMap.put("IMAGEURL", memberDto.getImageurl());
 		paramMap.put("ORIGINALIMAGEURL", memberDto.getORIGINALIMAGEURL());
 		
 		return paramMap;

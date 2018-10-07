@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.min.www.dto.BoardAndAlertJoinDto;
 import com.min.www.dto.BoardDto;
 import com.min.www.dto.BoardOptionsDto;
 import com.min.www.dto.BoardReplyDto;
@@ -63,8 +64,9 @@ public interface BoardService {
 //	void dislikeBoardDisagree(Map<String, Object> paramMap);
 
 	// 새로운 댓글 읽었으면 DB에서 읽음 처리
-	void checkingTheBoardReply(Map<String, Object> paramMap); 
+	void checkingTheBoardReply(int alertId); 
 
-	
+	// 알림할 댓글들 가져오기 
+	List<BoardAndAlertJoinDto> getAlerts(String writer);
 
 }

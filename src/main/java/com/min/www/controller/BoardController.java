@@ -100,15 +100,24 @@ public class BoardController {
 		
 		String writer = (String)session.getAttribute("loginuser");
 		memberService.getMember(writer);
+		
 		System.out.println("로그인한 유저:" + writer);
-		// 로그인한 유저의 아이디를 대입해서 알람 가져오기
+		// 로그인 상태일 경우 코드 시작
+		if(session.getAttribute("memberInfo") != null) {
+		MemberDto memberDto = (MemberDto)session.getAttribute("memberInfo");
+		// 로그인한 유저의 닉네임 대입해서 알람 가져오기 
 		List<BoardAndAlertJoinDto> BoardAndAlertJoinDtos =
-				boardDao.getAllBoardReplys(writer);
+				boardDao.getAlerts(memberDto.getNickname());
 		
 		int totalAlert = BoardAndAlertJoinDtos.size();
 		
+		
+		System.out.println("총 알람 갯수 : " +totalAlert);
+		
 		model.addAttribute("totalAlert",totalAlert);
-		model.addAttribute("BoardAndAlertJoinDtos",BoardAndAlertJoinDtos);
+		
+		model.addAttribute("boardAndAlertJoinDtos",BoardAndAlertJoinDtos);
+		} // 로그인 상태일 경우 코드 끝
 		int totalCnt;
 
 		String searchContent = (String) paramMap.get("searchArea");
@@ -387,7 +396,7 @@ public class BoardController {
 
 		// 방금 등록한 board_id랑 reply_id 가져와야함 .
 		// 알림 추가
-		boardService.regAlert(paramMap);
+		
 		
 
 		if (result > 0) {

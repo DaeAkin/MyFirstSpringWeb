@@ -281,10 +281,10 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public List<BoardAndAlertJoinDto> getAllBoardReplys(String writer) {
+	public List<BoardAndAlertJoinDto> getAlerts(String writer) {
 		// TODO Auto-generated method stub
 	
-		return 	sqlSession.selectList("getAllBoardReplys", writer);
+		return 	sqlSession.selectList("getAlerts",writer);
 	}
 
 	@Override
@@ -292,6 +292,8 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		sqlSession.insert("insertReplyAlert",paramMap);
 	}
+
+
 
 //	@Override
 //	public void likeBoardAgree(Map<String, Object> paramMap) {

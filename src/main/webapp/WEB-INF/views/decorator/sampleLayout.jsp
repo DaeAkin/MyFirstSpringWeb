@@ -114,10 +114,11 @@
                                            
                                         </a>
 
-                                        		<c:forEach var="BoardAndAlertJoinDtos" items="${BoardAndAlertJoinDtos }" varStatus="status">
+                                        		<c:forEach var="boardAndAlertJoinDtos" items="${boardAndAlertJoinDtos }" varStatus="status">
                                                     
                                                       <div class="input-group">
-  														<p> ${BoardAndAlertJoinDtos.reply_content } 댓글이 달렸습니다.</p>
+                                                      
+  														<p> ${boardAndAlertJoinDtos.reply_content } 댓글이 달렸습니다.</p>
 													</div>
                                                      
                                                         <div class="divider">

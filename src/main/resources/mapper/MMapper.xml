@@ -83,7 +83,7 @@ select
 	set 
 		password = #{password},
 		email = #{email},
-		IMAGEURL = # {imageurl},
+		IMAGEURL = #{IMAGEURL},
 		ORIGINALIMAGEURL = #{ORIGINALIMAGEURL}
 	where 
 		id = #{id}

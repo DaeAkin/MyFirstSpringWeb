@@ -331,7 +331,8 @@ delete from freeboard;
 			alert_id = #{alertid}
 	</update>
 	
-	<select id="getAllBoardReplys" 
+	<!--  모든 알람 가져오는 쿼리 -->
+	<select id="getAlerts" 
 		parameterType="String"
 			resultType="com.min.www.dto.BoardAndAlertJoinDto">
 			select 
@@ -347,6 +348,9 @@ delete from freeboard;
 			 
 	</select>
 	
+	
+
+
 	
 	
 </mapper>
