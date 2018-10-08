@@ -38,8 +38,9 @@
 	</insert>
 	
 	<!-- 댓글 -->
-	<insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" 
-	keyProperty="reply_id">
+	<insert id="insertBoardReply"  parameterType="java.util.HashMap"
+	 useGeneratedKeys="true" 
+	keyProperty="reply_id" >
 	insert into freeboardreply (
 	<!-- 테스트시에 -->
 		
@@ -335,6 +336,21 @@ delete from freeboard;
 	<select id="getAlerts" 
 		parameterType="String"
 			resultType="com.min.www.dto.BoardAndAlertJoinDto">
+			
+			select 
+				* 
+			from
+				freeboard 
+			left outer join 
+				freeboardreplyalter 
+			on 
+				freeboardreplyalter.board_id = freeboard.id 
+			left outer join 
+				 freeboardreply 
+			on 
+				freeboardreply.reply_id =  freeboardreplyalter.reply_id 
+			where freeboard.writer = #{writer};
+			<!-- 
 			select 
 				* 
 			from 
@@ -344,8 +360,21 @@ delete from freeboard;
 			on
 				 freeboardreplyalter.board_id = freeboard.id 
 			 where 
-				 freeboard.writer = #{writer}
+				 freeboard.writer = #{writer} -->
 			 
+	</select>
+	
+	
+	<!--  댓글 한개 가져오는 쿼리이다. -->
+	<select id="getOneReply" parameterType="String"
+	resultType="com.min.www.dto.BoardReplyDto"
+	>
+		select 
+			*
+		from
+			freeboardreply
+		where
+			reply_id = #{reply_id}
 	</select>
 	
 	

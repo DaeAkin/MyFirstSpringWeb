@@ -25,7 +25,7 @@ public interface BoardDao {
 	
 	BoardDto getContentView(Map<String, Object> paramMap);
 	
-	int regReply(Map<String, Object> parMap);
+	void regReply(Map<String, Object> parMap);
 	
 	List<BoardReplyDto> getReplyList(Map<String, Object> paramMap);
 	
@@ -97,6 +97,8 @@ public interface BoardDao {
 	
 	//댓글 등록과 함께 reply DB에 집어 넣기 
 	void insertReplyAlert(Map<String,Object> paramMap);
+
+	BoardReplyDto getOneReply(String reply_id);
 
 
 	

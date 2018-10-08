@@ -59,11 +59,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int regReply(Map<String, Object> paramMap) {
+	public void regReply(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 			
 			regAlert(paramMap);
-			return boardDao.regReply(paramMap);
+			boardDao.regReply(paramMap);
 	}
 
 	@Override
@@ -283,6 +283,12 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardAndAlertJoinDto> getAlerts(String writer) {
 		// TODO Auto-generated method stub
 		return boardDao.getAlerts(writer);
+	}
+
+	@Override
+	public BoardReplyDto getOneReply(String reply_id) {
+		// TODO Auto-generated method stub
+		return boardDao.getOneReply(reply_id);
 	}
 	
 	

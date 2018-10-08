@@ -53,9 +53,9 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public int regReply(Map<String, Object> parMap) {
+	public void regReply(Map<String, Object> parMap) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("insertBoardReply", parMap);
+		 sqlSession.insert("insertBoardReply", parMap);
 	}
 
 	@Override
@@ -291,6 +291,12 @@ public class BoardDaoImpl implements BoardDao{
 	public void insertReplyAlert(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 		sqlSession.insert("insertReplyAlert",paramMap);
+	}
+
+	@Override
+	public BoardReplyDto getOneReply(String reply_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getOneReply",reply_id);
 	}
 
 

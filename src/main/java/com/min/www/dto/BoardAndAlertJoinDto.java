@@ -8,13 +8,6 @@ public class BoardAndAlertJoinDto {
 
 	// boardReplyDto
 	private String reply_id;
-	private String board_id;
-	private String parent_id;
-	private String depth;
-	private String reply_content;
-	private String reply_writer;
-	private String reply_password;
-	private Date register_datetime;
 	private String IMAGEURL;
 	private String ORIGINALIMAGEURL;
 	
@@ -24,6 +17,17 @@ public class BoardAndAlertJoinDto {
 //	private int board_id;
 //	private int reply_id;
 	private int isalerted;
+	
+	
+	//replyDto
+	
+	private String board_id;
+	private String parent_id;
+	private String depth;
+	private String reply_content;
+	private String reply_writer;
+	private String reply_password;
+	private Date register_datetime;
 	
 	
 	public BoardAndAlertJoinDto() {

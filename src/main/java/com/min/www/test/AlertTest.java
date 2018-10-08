@@ -52,9 +52,12 @@ public class AlertTest {
 	public void boardRelyDtoSetup() {
 		ParamFactory paramFactory = new ParamFactory();
 
-		boardReplyDto1 = new BoardReplyDto("1", "1", "0", "0", "hi1", "who?", "1234", null, null, null);
-		boardReplyDto2 = new BoardReplyDto("2", "1", "0", "0", "hi2", "who?", "1234", null, null, null);
-		boardReplyDto3 = new BoardReplyDto("3", "1", "0", "0", "hi3", "who?", "1234", null, null, null);
+		boardReplyDto1 = new BoardReplyDto( "1", "0",
+				"0", "hi1", "who?", "1234", null, "12.png", "123.png");
+		boardReplyDto2 = new BoardReplyDto( "1", "0",
+				"0", "hi2", "who?", "1234", null, "23.png", "234.png");
+		boardReplyDto3 = new BoardReplyDto( "1", "0",
+				"0", "hi3", "who?", "1234", null, "34.png", "456.png");
 
 		boardReplyParam1 = paramFactory.boardDtoReplyFactory(boardReplyDto1);
 
@@ -69,7 +72,8 @@ public class AlertTest {
 	public void boardDtoSetup() {
 		ParamFactory paramFactory = new ParamFactory();
 
-		boardDto = new BoardDto(1, "test!!", "DaeAkin", null, "contentArea", 0);
+		boardDto = new BoardDto(1, "test!!", "DaeAkin",
+				null, "contentArea", 0);
 
 		boardParam = paramFactory.boardDtoFactory(boardDto);
 
@@ -112,9 +116,22 @@ public class AlertTest {
 		// 게시글 등록 게시글 번호 : 1
 		boardDao.regContent(boardParam);
 		// 게시글 번호1에 달린 댓글 3개 등록
-		boardService.regReply(boardReplyParam1);
+	 boardService.regReply(boardReplyParam1);
+		
+		System.out.println("reply_id 값 : " +
+		boardReplyDto1.getReply_id());
 		boardService.regReply(boardReplyParam2);
 		boardService.regReply(boardReplyParam3);
+		
+		//댓글 한개를 전부 검사해보기 (전부 다 등록 되어있나)
+//		BoardReplyDto replydto = boardService.
+//				getOneReply(String.valueOf(reply_id));
+		// 대표로 boardReplyParam1을 가져올 것이다. 
+		// 검사 
+//			checkReplyValid(replydto, boardReplyDto1);
+		
+		
+		
 
 		// 전체 게시물이 1개인지 확인
 		assertThat(boardDao.getBoardCnt(), is(1));
@@ -154,5 +171,26 @@ public class AlertTest {
 		}
 
 	}
+	public void checkReplyValid(BoardReplyDto DBReplyDto,
+			BoardReplyDto replyDto) {
+		assertThat(DBReplyDto.getReply_content(),
+				is(replyDto.getReply_content()));
+		
+		assertThat(DBReplyDto.getIMAGEURL(),
+				is(replyDto.getIMAGEURL()));
+		
+		assertThat(DBReplyDto.getORIGINALIMAGEURL(),
+				is(replyDto.getORIGINALIMAGEURL()));
+		
+		assertThat(DBReplyDto.getReply_writer(),
+				is(replyDto.getReply_writer()));
+		
+
+		
+	}
+	
+	
+	
+	
 
 }

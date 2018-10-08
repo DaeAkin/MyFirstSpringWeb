@@ -20,7 +20,7 @@ public interface BoardService {
 	
 	BoardDto getContentView(Map<String, Object> paramMap);
 	
-	int regReply(Map<String, Object> paramMap);
+	void regReply(Map<String, Object> paramMap);
 	
 	List<BoardReplyDto> getReplyList(Map<String, Object> paramMap);
 	
@@ -68,5 +68,8 @@ public interface BoardService {
 
 	// 알림할 댓글들 가져오기 
 	List<BoardAndAlertJoinDto> getAlerts(String writer);
+	
+	//댓글 한개 가져오기
+	BoardReplyDto getOneReply(String reply_id);
 
 }
