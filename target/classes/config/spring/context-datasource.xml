@@ -32,12 +32,17 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations"
 			value="classpath:/mapper/**/*.xml" />
+		<property name="configLocation"  
+		value="classpath:/config/spring/mybatis.config.xml"/>
+			
 	</bean>
 
 	<bean id="sqlSessionTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSession" />
+		
 	</bean>
+	
 	
 	<bean id="fileUtils" class="com.min.www.util.FileUtils"></bean>
 	<bean id="timeUtil" class="com.min.www.util.TimeUtil"></bean>

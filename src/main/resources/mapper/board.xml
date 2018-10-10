@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN/" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.min.www.Service.BoardDao"><!-- Class be looked -->
+
+	
+	
 	<insert id="insertContent" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="id">
 		insert into freeboard (
 			id, <!-- 서버구동시 삭제 id부분 -->
