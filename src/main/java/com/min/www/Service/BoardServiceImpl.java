@@ -62,8 +62,10 @@ public class BoardServiceImpl implements BoardService{
 	public void regReply(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 			
-			regAlert(paramMap);
+		
 			boardDao.regReply(paramMap);
+			regAlert(paramMap);
+			System.out.println("서비스 단의서의 reply_id :" +paramMap.get("reply_id"));
 	}
 
 	@Override

@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -37,18 +39,7 @@ import com.min.www.util.TimeUtil;
 
 /*
  * 
- *  작업할 내용 
- *  
- *  
- * 1. 회원 이미지를 업로드하면 업로드된게 반영이 안된다.
- * 그 이유는 세션이 업데이트 되지 않아서이다.
- * url가져오는 세션을 없애고 다시 초기화해주면 될 것이다.
- * 
- * 2.웹 소켓으로 댓글 작성시 실시간 알림 받기 .
- * 
- * 
- * 3.이미지 업로드하면 <a> 태그써서 원본 보여주기.
- * 
+
  * 
  * 4. 회원가입이나 회원 수정 시 자바스크립트로 유효성 검사하기. 
  */
@@ -81,11 +72,27 @@ public class BoardController {
 	}
 
 	String uploadPath;
-
-	@RequestMapping(value = "/ex")
-	public void toDo() {
-		System.out.println("toDo 실행");
+	
+	private Map<String, Object> getAlerts() {
+		//리턴해줄 맵
+		Map<String, Object> returnMap = new HashMap<>();
+		
+		//https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/index.html?org/springframework/web/context/request/RequestContextHolder.html
+		// session들은 톰캣에 저장되어 분류되는가? 저장되있는 session 파일들이 존재하는 것인가? 
+		//getRequestAttributes들은 어디서 가져오는거지? request가 들어올때마다 파일이 지정되있나.. 
+		HttpServletRequest request = 
+				((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		
+		HttpSession session = request.getSession();
+		
+		//test code
+		String writer = (String)session.getAttribute("loginuser");
+		System.out.println("getAlerts : " + writer);
+		
+		return returnMap;
 	}
+
+	
 
 	@RequestMapping(value = "/board/write")
 	public String boardwrite() {
@@ -100,6 +107,7 @@ public class BoardController {
 		
 		String writer = (String)session.getAttribute("loginuser");
 		memberService.getMember(writer);
+		getAlerts();
 		
 		System.out.println("로그인한 유저:" + writer);
 		// 로그인 상태일 경우 코드 시작
@@ -200,6 +208,7 @@ public class BoardController {
 	@RequestMapping(value = "/board/edit")
 	public String boardEdit(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) {
 		System.out.println("게시글 등록 및 수정 ()");
+		
 		// Referer 검사
 		String Referer = request.getHeader("referer");
 

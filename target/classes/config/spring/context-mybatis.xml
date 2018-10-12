@@ -7,6 +7,7 @@
 
   <typeAliases>
   	<typeAlias type="com.min.www.dto.BoardDto" alias="board"/>
-  	<typeAlias type="com.min.www.dto.BoardReplyDto" alias="boardReply t"/>
+  	<!-- <typeAlias alias="Author" type="domain.blog.Author"/> -->
+  	<typeAlias type="com.min.www.dto.BoardReplyDto" alias="boardReply"/>
   </typeAliases>
 </configuration>

@@ -3,6 +3,7 @@ package com.min.www.test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,6 +104,8 @@ public class AlertTest {
 	// 컨트롤러에서 글쓴이만 붙여주면됨 session 이용하기. 
 	@Test
 	public void boardAlertTest() {
+		
+		Map<String, Object> param = new HashMap<>();
 		// 모든 게시물 삭제
 		boardService.deleteAllBoard();
 		// 모든 댓글 삭제
@@ -116,12 +119,13 @@ public class AlertTest {
 		// 게시글 등록 게시글 번호 : 1
 		boardDao.regContent(boardParam);
 		// 게시글 번호1에 달린 댓글 3개 등록
-	 boardService.regReply(boardReplyParam1);
+		boardService.regReply(boardReplyParam1);
 		
-		System.out.println("reply_id 값 : " +
-		boardReplyDto1.getReply_id());
+//		System.out.println("reply_id 값 : " +
+//		boardReplyDto1.getReply_id());
 		boardService.regReply(boardReplyParam2);
 		boardService.regReply(boardReplyParam3);
+
 		
 		//댓글 한개를 전부 검사해보기 (전부 다 등록 되어있나)
 //		BoardReplyDto replydto = boardService.
