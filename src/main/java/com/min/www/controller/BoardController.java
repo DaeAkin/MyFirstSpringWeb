@@ -85,9 +85,11 @@ public class BoardController {
 		
 		HttpSession session = request.getSession();
 		
+
+		
 		//test code
 		String writer = (String)session.getAttribute("loginuser");
-		System.out.println("getAlerts : " + writer);
+//		System.out.println("getAlerts : " + writer);
 		
 		return returnMap;
 	}

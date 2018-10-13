@@ -1,5 +1,7 @@
+<%@page import="com.min.www.dao.BoardDaoImpl"%>
+<%@page import="com.min.www.dto.member.MemberDto"%>
 <%@page import="java.util.Map"%>
-<%@page import="com.min.www.dao.BoardDao"%>
+<%@page import="com.min.www.dao.BoardDaoImpl"%>
 <%@page import="com.min.www.dto.BoardAndAlertJoinDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -48,6 +50,21 @@
 });
         </script>
         </head>
+        
+        <%
+       	 BoardDaoImpl boardDao = new BoardDaoImpl();
+        
+        	if((String)session.getAttribute("loginuser") != null ) {
+        		
+        		MemberDto memberDto = 
+        				(MemberDto)session.getAttribute("memberInfo");
+        		System.out.println(memberDto.getNickname());
+        		/* List<BoardAndAlertJoinDto> BoardAndAlertJoinDtos =
+        				boardDao.getAlerts(memberDto.getNickname()); */
+        		/* int totalAlert = BoardAndAlertJoinDtos.size(); */
+        		/* System.out.println(totalAlert); */
+        	}
+        %>
         
      <body class="home">
     <div class="container-fluid display-table">
