@@ -1,3 +1,6 @@
+<%@page import="com.min.www.dao.BoardDao"%>
+<%@page import="com.min.www.Service.BoardServiceImpl"%>
+<%@page import="com.min.www.Service.BoardService"%>
 <%@page import="com.min.www.dao.BoardDaoImpl"%>
 <%@page import="com.min.www.dto.member.MemberDto"%>
 <%@page import="java.util.Map"%>
@@ -51,21 +54,36 @@
         </script>
         </head>
         
+
+        
         <%
-       	 BoardDaoImpl boardDao = new BoardDaoImpl();
+        	BoardDao boardDao = new BoardDaoImpl();
         
-        	if((String)session.getAttribute("loginuser") != null ) {
-        		
-        		MemberDto memberDto = 
-        				(MemberDto)session.getAttribute("memberInfo");
-        		System.out.println(memberDto.getNickname());
-        		/* List<BoardAndAlertJoinDto> BoardAndAlertJoinDtos =
-        				boardDao.getAlerts(memberDto.getNickname()); */
-        		/* int totalAlert = BoardAndAlertJoinDtos.size(); */
-        		/* System.out.println(totalAlert); */
-        	}
+        System.out.println(boardDao);
+        
+        int totalAlert; // 전체 알람 갯수 변수
+        
+       	if((String)session.getAttribute("loginuser") != null ) {
+    		
+    		MemberDto memberDto = 
+    				(MemberDto)session.getAttribute("memberInfo");
+    		System.out.println("세션 로그인 : " + memberDto.getNickname());
+    		 
+    		// 오류가 나는 부분
+    		try {
+    			List<BoardAndAlertJoinDto> BoardAndAlertJoinDtos =
+    		    boardDao.getAlerts(memberDto.getNickname()); 
+    			  totalAlert = BoardAndAlertJoinDtos.size(); 
+    		} catch(NullPointerException e) {
+    			  totalAlert = 0;
+    		}
+    		
+    		 
+    		 System.out.println(totalAlert);  
+    	} 
+        
+     	  	
         %>
-        
      <body class="home">
     <div class="container-fluid display-table">
         <div class="row display-table-row">

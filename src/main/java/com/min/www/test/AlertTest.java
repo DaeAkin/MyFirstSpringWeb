@@ -22,6 +22,12 @@ import com.min.www.dto.BoardReplyDto;
 import com.min.www.util.ParamFactory;
 
 // 사용자가 쓴 게시물에 댓글이 달리면 알람 카운터가 올라가는 테스트.
+
+/*
+ * notice :
+ * 글쓴사람은 닉네임으로 지정할 것,
+ * 알람가져오는 쿼리도 닉네임으로 지정할 것.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "context-testContext.xml")
 public class AlertTest {
@@ -39,6 +45,8 @@ public class AlertTest {
 	private BoardReplyDto boardReplyDto2;
 
 	private BoardReplyDto boardReplyDto3;
+	
+	private BoardReplyDto boardReplyDto4;
 
 	private Map<String, Object> boardParam;
 
@@ -59,6 +67,8 @@ public class AlertTest {
 				"0", "hi2", "who?", "1234", null, "23.png", "234.png");
 		boardReplyDto3 = new BoardReplyDto( "1", "0",
 				"0", "hi3", "who?", "1234", null, "34.png", "456.png");
+		
+		
 
 		boardReplyParam1 = paramFactory.boardDtoReplyFactory(boardReplyDto1);
 
