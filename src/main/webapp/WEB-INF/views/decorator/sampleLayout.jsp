@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.min.www.dao.BoardDao"%>
 <%@page import="com.min.www.Service.BoardServiceImpl"%>
 <%@page import="com.min.www.Service.BoardService"%>
@@ -56,14 +57,28 @@
         
 
         
-        <%
+        <%--
+        
         	BoardDao boardDao = new BoardDaoImpl();
+       		BoardService boardService = new BoardServiceImpl();
+       		int a = boardDao.returnTest();
+       		System.out.println("머야 : " + a);
+       		
+       		
+       		List<BoardAndAlertJoinDto> boardAndAlertJoinDtos =
+			boardDao.getAlerts("바보");
+			
+			//System.out.println("머야시 : " + boardAndAlertJoinDtos.size());
+			
         
-        System.out.println(boardDao);
-        
+        --%>
+        <%
+        BoardDao boardDao = new BoardDaoImpl();
+   		BoardService boardService = new BoardServiceImpl();
         int totalAlert; // 전체 알람 갯수 변수
         
-       	if((String)session.getAttribute("loginuser") != null ) {
+       	if((String)session.getAttribute("loginuser") != null 
+       	&& (MemberDto)session.getAttribute("memberInfo") != null) {
     		
     		MemberDto memberDto = 
     				(MemberDto)session.getAttribute("memberInfo");
@@ -71,15 +86,19 @@
     		 
     		// 오류가 나는 부분
     		try {
-    			List<BoardAndAlertJoinDto> BoardAndAlertJoinDtos =
-    		    boardDao.getAlerts(memberDto.getNickname()); 
-    			  totalAlert = BoardAndAlertJoinDtos.size(); 
+    				List<BoardAndAlertJoinDto> aa =
+    				boardDao.getAlerts("바보");
+    				
+    				System.out.println("return test : " + boardDao.returnTest());
+    			
+    			  totalAlert = aa.size(); 
     		} catch(NullPointerException e) {
     			  totalAlert = 0;
+    			  System.out.println("nullPointerException 입니다.");
     		}
     		
     		 
-    		 System.out.println(totalAlert);  
+    		 System.out.println("알려줄 알람 수 : " + totalAlert);  
     	} 
         
      	  	

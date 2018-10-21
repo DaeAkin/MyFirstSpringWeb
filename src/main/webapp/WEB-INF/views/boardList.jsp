@@ -1,3 +1,5 @@
+<%@page import="com.min.www.dao.BoardDaoImpl"%>
+<%@page import="com.min.www.dao.BoardDao"%>
 <%@page import="com.min.www.dto.member.MemberDto"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -141,6 +143,8 @@
 
 </head>
 <body>
+
+
 	<h1>QNA</h1>
 
 

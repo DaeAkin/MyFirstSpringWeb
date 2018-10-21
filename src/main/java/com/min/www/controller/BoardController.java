@@ -453,5 +453,11 @@ public class BoardController {
 
 		return "socketTest";
 	}
+	
+	@RequestMapping(value = "/testDto")
+	public String testDto() {
+		
+		return "testDto";
+	}
 
 }

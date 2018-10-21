@@ -283,7 +283,9 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public List<BoardAndAlertJoinDto> getAlerts(String writer) {
 		// TODO Auto-generated method stub
-	
+		System.out.println("test용 getAlerts writer :" +writer);
+		List<BoardAndAlertJoinDto> list = sqlSession.selectList("getAlerts",writer);
+		System.out.println("size test : " + list.size());
 		return 	sqlSession.selectList("getAlerts",writer);
 	}
 
@@ -297,6 +299,12 @@ public class BoardDaoImpl implements BoardDao{
 	public BoardReplyDto getOneReply(String reply_id) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getOneReply",reply_id);
+	}
+
+	@Override
+	public int returnTest() {
+		// TODO Auto-generated method stub
+		return 5;
 	}
 
 

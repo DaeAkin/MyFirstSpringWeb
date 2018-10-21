@@ -100,6 +100,7 @@ public interface BoardDao {
 
 	BoardReplyDto getOneReply(String reply_id);
 
+	int returnTest();
 
 	
 	
