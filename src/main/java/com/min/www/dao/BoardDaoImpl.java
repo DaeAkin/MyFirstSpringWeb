@@ -284,7 +284,9 @@ public class BoardDaoImpl implements BoardDao{
 	public List<BoardAndAlertJoinDto> getAlerts(String writer) {
 		// TODO Auto-generated method stub
 		System.out.println("test용 getAlerts writer :" +writer);
+		System.out.println("getAlerts : 전");
 		List<BoardAndAlertJoinDto> list = sqlSession.selectList("getAlerts",writer);
+		System.out.println("getAlerts : 후");
 		System.out.println("size test : " + list.size());
 		return 	sqlSession.selectList("getAlerts",writer);
 	}

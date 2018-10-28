@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.omg.CORBA.MARSHAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,11 +111,12 @@ public class MController {
 	
 	
 	
-	@RequestMapping(value="/member/loginform")
-	public String memberLoginform() {
-		
-		return "loginform";
-	}
+//	@RequestMapping(value="/member/loginform")
+//	public String memberLoginform() {
+//		
+//		return "loginform";
+//	}
+	
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
 //	@ResponseBody
 	public String memberLogin(@RequestParam Map<String, Object> paramMap,  HttpSession session,HttpServletRequest request,
@@ -160,13 +162,32 @@ public class MController {
 		
 	 
 		
-		return "redirect:/board/list";
+		return "/board/list";
+	}
+	//회원가입 폼
+	@RequestMapping(value="/member/memberSignupForm")
+	public String memberSignupForm() {
+		System.out.println(" ----- memberSignupForm --------");
+		
+		return "memberSignupForm";
+	}
+	
+	
+	// 회원가입 처리해주는 메소드 
+	@RequestMapping(value="/member/memberSignupFromInsert")
+	public String memberSignupFromInsert(@RequestParam Map<String, Object> paramMap) {
+		// id , nickname , email , password //img 
+		System.out.println("----- memberSignupFromInsert -----");
+
+		System.out.println("회원 가입할 ID :" +paramMap.get("id"));
+		memberService.insertMember(paramMap);
+		return "/board/list"; // 추후에 홈으로 수정
 	}
 	@RequestMapping(value="/member/logout")
 	public String memberLogout(HttpSession session) {
 		
 		session.invalidate();
-		return "redirect:/board/list"; //추후에 홈으로 수정.
+		return "board/list"; //추후에 홈으로 수정.
 	}
 	
 	@RequestMapping(value="/member/editForm") 

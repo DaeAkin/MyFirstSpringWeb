@@ -77,4 +77,16 @@ select
 			member;
 </select>
 
+<update id="memberEdit" parameterType="java.util.HashMap">
+	update 
+		member
+	set 
+		password = #{password},
+		email = #{email},
+		IMAGEURL = #{IMAGEURL},
+		ORIGINALIMAGEURL = #{ORIGINALIMAGEURL}
+	where 
+		id = #{id}
+</update>
+
 </mapper>

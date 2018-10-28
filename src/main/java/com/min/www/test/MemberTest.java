@@ -2,37 +2,19 @@ package com.min.www.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.min.www.Service.member.MemberService;
-import com.min.www.controller.MController;
 import com.min.www.dao.member.MemberDao;
 import com.min.www.dto.member.MemberDto;
 import com.min.www.util.ParamFactory;
@@ -62,7 +44,7 @@ public class MemberTest {
 //	MockHttpSession session;
 //	MockHttpServletRequest request;
 	
-	@Autowired
+
 //	private WebApplicationContext wac;
 //	private MockMvc mockMvc; 
 	

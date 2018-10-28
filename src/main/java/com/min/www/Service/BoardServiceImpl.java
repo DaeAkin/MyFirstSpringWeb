@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.min.www.Exception.SessionloginUserInvalid;
 import com.min.www.dao.BoardDao;
 import com.min.www.dao.BoardDaoImpl;
 import com.min.www.dto.BoardAndAlertJoinDto;
@@ -132,8 +133,16 @@ public class BoardServiceImpl implements BoardService{
 //		boardDao.regContent(paramMap); //테스트시에만
 		
 		HttpSession session = request.getSession();
+		
 		MemberDto memberDto = (MemberDto)session.getAttribute("memberInfo");
+		
+		// 세션 죽는거 방지용 .
+		if(memberDto == null) {
+			throw new SessionloginUserInvalid("session 죽음 ") ;
+		}
+		
 		String writer = memberDto.getNickname();
+	
 		
 		if(writer == null) {
 			writer = "테스트용";

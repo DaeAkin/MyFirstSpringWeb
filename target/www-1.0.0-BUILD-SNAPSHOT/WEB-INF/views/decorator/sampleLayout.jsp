@@ -1,5 +1,11 @@
-<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.min.www.dao.BoardDao"%>
+<%@page import="com.min.www.Service.BoardServiceImpl"%>
+<%@page import="com.min.www.Service.BoardService"%>
+<%@page import="com.min.www.dao.BoardDaoImpl"%>
+<%@page import="com.min.www.dto.member.MemberDto"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.min.www.dao.BoardDaoImpl"%>
 <%@page import="com.min.www.dto.BoardAndAlertJoinDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -49,6 +55,54 @@
         </script>
         </head>
         
+
+        
+        <%--
+        
+        	BoardDao boardDao = new BoardDaoImpl();
+       		BoardService boardService = new BoardServiceImpl();
+       		int a = boardDao.returnTest();
+       		System.out.println("머야 : " + a);
+       		
+       		
+       		List<BoardAndAlertJoinDto> boardAndAlertJoinDtos =
+			boardDao.getAlerts("바보");
+			
+			//System.out.println("머야시 : " + boardAndAlertJoinDtos.size());
+			
+        
+        --%>
+        <%
+        BoardDao boardDao = new BoardDaoImpl();
+   		BoardService boardService = new BoardServiceImpl();
+        int totalAlert; // 전체 알람 갯수 변수
+        
+       	if((String)session.getAttribute("loginuser") != null 
+       	&& (MemberDto)session.getAttribute("memberInfo") != null) {
+    		
+    		MemberDto memberDto = 
+    				(MemberDto)session.getAttribute("memberInfo");
+    		System.out.println("세션 로그인 : " + memberDto.getNickname());
+    		 
+    		// 오류가 나는 부분
+    		try {
+    				List<BoardAndAlertJoinDto> aa =
+    				boardDao.getAlerts("바보");
+    				
+    				System.out.println("return test : " + boardDao.returnTest());
+    			
+    			  totalAlert = aa.size(); 
+    		} catch(NullPointerException e) {
+    			  totalAlert = 0;
+    			  System.out.println("nullPointerException 입니다.");
+    		}
+    		
+    		 
+    		 System.out.println("알려줄 알람 수 : " + totalAlert);  
+    	} 
+        
+     	  	
+        %>
      <body class="home">
     <div class="container-fluid display-table">
         <div class="row display-table-row">
@@ -114,10 +168,11 @@
                                            
                                         </a>
 
-                                        		<c:forEach var="BoardAndAlertJoinDtos" items="${BoardAndAlertJoinDtos }" varStatus="status">
+                                        		<c:forEach var="boardAndAlertJoinDtos" items="${boardAndAlertJoinDtos }" varStatus="status">
                                                     
                                                       <div class="input-group">
-  														<p> ${BoardAndAlertJoinDtos.reply_content } 댓글이 달렸습니다.</p>
+                                                      
+  														<p> ${boardAndAlertJoinDtos.reply_content } 댓글이 달렸습니다.</p>
 													</div>
                                                      
                                                         <div class="divider">
@@ -147,7 +202,7 @@
                                                  
                                                    
                                                    <div class="input-group">
-  														<a href="<%=request.getContextPath()%>/member/edit"  class="btn btn-default">내 정보</a> 
+  														<a href="<%=request.getContextPath()%>/member/editForm"  class="btn btn-default">내 정보</a> 
 													</div>
 
                                                     <div class="divider">

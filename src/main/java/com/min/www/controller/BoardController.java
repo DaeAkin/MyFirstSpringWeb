@@ -41,7 +41,7 @@ import com.min.www.util.TimeUtil;
  * 
 
  * 
- * 4. 회원가입이나 회원 수정 시 자바스크립트로 유효성 검사하기. 
+ * 4. 회원가입이나 	 수정 시 자바스크립트로 유효성 검사하기. 
  */
 
 @Controller
@@ -222,20 +222,20 @@ public class BoardController {
 					model.addAttribute("boardView", boardService.getContentView(paramMap));
 					return "boardEdit";
 				} else {
-					return "redirect:/board/list";
+					return "/board/list";
 				}
 			} else { // 게시글 등록
 				if (Referer.indexOf("/board/list") > -1) {
 					return "boardEdit";
 
 				} else {
-					return "redirect:/board/list";
+					return "/board/list";
 				}
 
 			}
 
 		} else {
-			return "redirect:/board/list";
+			return "/board/list";
 		}
 
 	}
@@ -403,21 +403,21 @@ public class BoardController {
 		// paramMap.put("reply_password", password);
 
 		// 정보 입력
-		int result = boardService.regReply(paramMap);
 
+		boardService.regReply(paramMap);
 		// 방금 등록한 board_id랑 reply_id 가져와야함 .
 		// 알림 추가
 		
-		
+//		int result = boardService.regReply(paramMap);
 
-		if (result > 0) {
-			retVal.put("code", "OK");
-			retVal.put("reply_id", paramMap.get("reply_id"));
-			retVal.put("message", "등록에 성공 하였습니다.");
-		} else {
-			retVal.put("code", "FAIL");
-			retVal.put("message", "등록에 실패 하였습니다.");
-		}
+//		if (result > 0) {
+//			retVal.put("code", "OK");
+//			retVal.put("reply_id", paramMap.get("reply_id"));
+//			retVal.put("message", "등록에 성공 하였습니다.");
+//		} else {
+//			retVal.put("code", "FAIL");
+//			retVal.put("message", "등록에 실패 하였습니다.");
+//		}
 
 		return retVal;
 	}

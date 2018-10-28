@@ -1,3 +1,10 @@
+<%@page import="com.min.www.dto.BoardAndAlertJoinDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.min.www.Service.BoardServiceImpl"%>
+<%@page import="com.min.www.Service.BoardService"%>
+<%@page import="com.min.www.dao.BoardDaoImpl"%>
+<%@page import="com.min.www.dao.BoardDao"%>
 <%@page import="com.min.www.dto.member.MemberDto"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -141,15 +148,34 @@
 
 </head>
 <body>
+	<%	
+		System.out.println("boardList.jsp");
+
+	BoardDao boardDao = new BoardDaoImpl();
+	BoardService boardService = new BoardServiceImpl();
+	int a = boardDao.returnTest();
+	System.out.println("머야 : " + a);
+	
+	List<Integer> list = new ArrayList<>();
+	list.add(0, 3);
+	
+	List<BoardAndAlertJoinDto> boardAndAlertJoinDtos =
+			new ArrayList<>();
+	boardAndAlertJoinDtos = boardService.getAlerts("대악인");
+	
+	System.out.println("싸이즈 : " + boardAndAlertJoinDtos.size());
+	%>
+
 	<h1>QNA</h1>
 
 
 
 
-
+	
 
 	<form class="form-inline" id="frmSearch"
 		action="<%=request.getContextPath()%>/board/list">
+		
 		<input type="hidden" id="startPage" name="startPage" value="1">
 		<!-- 페이징을 위한 hidden 타입 추가 -->
 		<input type="hidden" id="visiblePages" name="visiblePages" value="10">

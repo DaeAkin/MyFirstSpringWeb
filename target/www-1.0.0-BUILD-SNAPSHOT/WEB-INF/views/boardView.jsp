@@ -697,8 +697,9 @@ return true;
 						<li class="list-group-item">
 							<div class="media" style="margin-bottom: 30px;">
 								<div class="media-left">
+					
 									<a href="#"> <img class="media-object"
-									src="<%=request.getContextPath() %>/resources/image/64x64.svg"
+									src="<%=request.getContextPath() %>/resources/profileImage/${replyList.IMAGEURL }"
 									<%-- 	src="<%=request.getContextPath() %>/resources/imageupload/${replyList.ORIGINALIMAGEURL }" --%>
 										alt="회원사진">
 									</a>
@@ -706,6 +707,7 @@ return true;
 								<div class="media-body">
 									<h4 class="media-heading">${replyList.reply_writer }</h4>
 									<small>${replyList.register_datetime}에 작성됨</small>
+									<hr/>
 								</div>
 							</div> ${replyList.reply_content }
 						</li>

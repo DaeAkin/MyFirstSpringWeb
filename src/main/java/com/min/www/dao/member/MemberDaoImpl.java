@@ -43,9 +43,9 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public int memberIdCheck(Map<String, Object> paramMap) {
+	public int memberInvalidCheck(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("memberIdCheck",paramMap);
+		return sqlSession.selectOne("memberInvalidCheck",paramMap);
 	}
 
 	@Override

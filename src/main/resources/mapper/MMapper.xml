@@ -8,20 +8,24 @@
 		id,
 		password,
 		nickname,
-		email
+		email,
+		IMAGEURL,
+		ORIGINALIMAGEURL
 		) values (
 		#{id},
 		#{password},
 		#{nickname},
-		#{email}
+		#{email},
+		#{IMAGEURL},
+		#{ORIGINALIMAGEURL}
 		)
 	
 
 </insert>
 
-<select id="memberIdCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+<select id="memberInvalidCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 	select 
-		count(id)
+		*
 	from
 		member
 	where id=#{id}
