@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.min.www.Exception.CreateSessionError;
+import com.min.www.Exception.MemberDuplicationException;
 import com.min.www.Exception.SessionloginUserInvalid;
 import com.min.www.Service.member.MemberService;
 import com.min.www.dto.member.MemberDto;
@@ -57,7 +58,7 @@ public class MController {
 		
 		System.out.println("insert 성공 메세지 : " + 
 		memberService.insertMember(paramMap));
-		
+	
 		System.out.println("성공");
 		
 		
@@ -162,7 +163,7 @@ public class MController {
 		
 	 
 		
-		return "/board/list";
+		return "redirect:/board/list";
 	}
 	//회원가입 폼
 	@RequestMapping(value="/member/memberSignupForm")
@@ -175,19 +176,38 @@ public class MController {
 	
 	// 회원가입 처리해주는 메소드 
 	@RequestMapping(value="/member/memberSignupFromInsert")
-	public String memberSignupFromInsert(@RequestParam Map<String, Object> paramMap) {
+	public String memberSignupFromInsert(@RequestParam Map<String, Object> paramMap,Model model) {
 		// id , nickname , email , password //img 
 		System.out.println("----- memberSignupFromInsert -----");
 
+				
 		System.out.println("회원 가입할 ID :" +paramMap.get("id"));
-		memberService.insertMember(paramMap);
-		return "/board/list"; // 추후에 홈으로 수정
+		
+		
+		// insertMember return 값 받는 변수 
+		Map<String, Object> insertMemberMap = new HashMap<>();
+		
+		try {
+			insertMemberMap = 
+					memberService.insertMember(paramMap);
+			
+			// insertMember Return 값 받기.
+			paramMap.put("isInvalid",insertMemberMap);
+			return "board/list"; // 추후에 홈으로 수정
+		} catch (MemberDuplicationException e) {
+			// 중복 값이 있다면 ~ 
+			
+			paramMap.put("isInvalid",e.getReturnMap());
+			model.addAttribute("returnJsp",paramMap);
+			return "memberSignupForm";
+		}
+		
 	}
 	@RequestMapping(value="/member/logout")
 	public String memberLogout(HttpSession session) {
 		
 		session.invalidate();
-		return "board/list"; //추후에 홈으로 수정.
+		return "redirect:/board/list"; //추후에 홈으로 수정.
 	}
 	
 	@RequestMapping(value="/member/editForm") 

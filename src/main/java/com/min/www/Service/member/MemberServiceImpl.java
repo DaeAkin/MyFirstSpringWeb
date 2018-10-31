@@ -10,15 +10,19 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.min.www.Exception.IsNotValidId;
+import com.min.www.Exception.IsNotValidNickname;
 import com.min.www.Exception.MemberDuplicationException;
 import com.min.www.Exception.NoSuchMemberException;
 import com.min.www.dao.member.MemberDao;
 import com.min.www.dto.member.MemberDto;
 import com.min.www.util.FileUtils;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 @Service("MemberService")
 public class MemberServiceImpl implements MemberService{
 	
@@ -49,13 +53,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int insertMember(Map<String, Object> paramMap) throws MemberDuplicationException {
-		//ID 중복체크.
-		// 컨트롤러에게 Exception처리를 위임해준다. 
-		memberInvalidCheck(paramMap);
-		
-	
-		
+	public Map<String,Object> insertMember(Map<String, Object> paramMap) throws MemberDuplicationException{
+		System.out.println("---- " + paramMap.get("id") + "님이 회원가입중 -----");
 		
 		// 넘어온 이미지 url이 빈 문자열일 
 		if((String)paramMap.get("ORIGINALIMAGEURL") == "" ) {
@@ -63,8 +62,24 @@ public class MemberServiceImpl implements MemberService{
 			paramMap.put("IMAGEURL", DEFAULT_MEMBER_IMAGE);	
 		}
 		
+		//ID 중복체크.
+		// 컨트롤러에게 Exception처리를 위임
+		Map<String,Object> invalidCheckMap = memberInvalidCheck(paramMap);
 		
-		return memberDao.insertMember(paramMap);
+		Boolean idFlag = (Boolean)invalidCheckMap.get("isInvalidId");
+		Boolean nickFlag = (Boolean)invalidCheckMap.get("isInvalidNickname");
+		if(idFlag && nickFlag) {
+			memberDao.insertMember(paramMap);
+			System.out.println("---- " + paramMap.get("id") + "님이 회원가입 완료  -----");
+			return invalidCheckMap;
+		} else {
+			System.out.println("---- " + paramMap.get("id") + "님이 회원가입 실패 -----");
+			throw new MemberDuplicationException(invalidCheckMap);
+		}
+			
+		
+		
+		
 	}
 
 	@Override
@@ -74,7 +89,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int memberInvalidCheck(Map<String, Object> paramMap) throws MemberDuplicationException {
+	public Map<String, Object> memberInvalidCheck(Map<String, Object> paramMap)  {
 		/* 두가지 방법.
 		 * 1, where 절에 id랑 nickname을 두개 줘서 OR로 일치하는거 다 가져온다음 .
 		 * for each 돌려서 id가 중복인지 nickname인지 중복 체크 해주는 것 .
@@ -87,15 +102,16 @@ public class MemberServiceImpl implements MemberService{
 		 * 단점 : 메소드가 check하는 수만큼 더 생기게 됨. 
 		 */
 		
+		Map<String, Object> returnMap = new HashMap<>();
 		
 		
-		int IDCheckInt = memberInvalidCheck(paramMap);
+			returnMap.put("isInvalidId", isInvalidId(paramMap));
+			returnMap.put("isInvalidNickname", isInvalidNickname(paramMap));
+			
+			return returnMap;
+	
+	
 		
-		if(IDCheckInt >= 1) {
-			throw new MemberDuplicationException();
-		}
-		
-		return memberDao.memberInvalidCheck(paramMap);
 	}
 	
 
@@ -180,6 +196,32 @@ public class MemberServiceImpl implements MemberService{
 		
 		memberDao.memberEdit(paramMap);
 		
+	}
+
+	@Override
+	public Boolean isInvalidId(Map<String, Object> paramMap)  {
+		
+		Boolean isCanUseId = false;
+		int isThereId = 0;
+		isThereId = memberDao.isInvalidId(paramMap);
+		
+		isCanUseId = isThereId >= 1 ? false : true;
+		
+	
+		return isCanUseId;
+	}
+
+	@Override
+	public Boolean isInvalidNickname(Map<String, Object> paramMap)  {
+
+		Boolean isCanUseNickname = false;
+		int isThereNickname = 0;
+		isThereNickname = memberDao.isInvalidNickname(paramMap);
+		
+		isCanUseNickname = isThereNickname >= 1 ? false : true;
+		
+	
+		return isCanUseNickname;
 	}
 
 

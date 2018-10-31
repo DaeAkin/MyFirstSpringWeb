@@ -4,10 +4,6 @@ package com.min.www.Service.member;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.ui.Model;
-
 import com.min.www.Exception.IsNotValidId;
 import com.min.www.Exception.IsNotValidNickname;
 import com.min.www.Exception.MemberDuplicationException;
@@ -19,19 +15,19 @@ public interface MemberService {
 	
 	MemberDto getMember(String id);
 	
-	int insertMember(Map<String,Object> paramMap) throws MemberDuplicationException;
+	Map<String,Object> insertMember(Map<String,Object> paramMap) throws MemberDuplicationException;
 	
 	int deleteMember(Map<String,Object> paramMap);
 	
-	int memberInvalidCheck(Map<String, Object> paramMap) throws MemberDuplicationException;
+	Map<String, Object> memberInvalidCheck(Map<String, Object> paramMap);
 	
 	int memberLogin(Map<String, Object>	paramMap);
 	
 	int memberNickCheck(Map<String, Object> paramMap);
 	
-	Boolean isInvalidId(Map<String, Object> paramMap) throws IsNotValidId;
+	Boolean isInvalidId(Map<String, Object> paramMap);
 	
-	Boolean isInvalidNickname(Map<String, Object> paramMap) throws IsNotValidNickname;
+	Boolean isInvalidNickname(Map<String, Object> paramMap);
 	
 	
 	

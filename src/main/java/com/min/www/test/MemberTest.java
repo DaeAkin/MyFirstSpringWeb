@@ -10,10 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.min.www.Exception.MemberDuplicationException;
 import com.min.www.Service.member.MemberService;
 import com.min.www.dao.member.MemberDao;
 import com.min.www.dto.member.MemberDto;
@@ -70,8 +73,8 @@ public class MemberTest {
 //		session = null;
 //	}
 	
-	@Test
-	public void addAndGet() {
+	@Test(expected= MemberDuplicationException.class)
+	public void addAndGet() throws MemberDuplicationException {
 		
 		
 		memberDao.deleteAllMember();
@@ -92,11 +95,48 @@ public class MemberTest {
 		
 		assertThat(member1.getNickname(), is(DBResultMemberDto.getNickname()));
 		assertThat(member1.getImageurl(), is(member1.getImageurl()));
+		
+		//중복 체크
+		memberService.insertMember(paramMap);
+		
+		// DB가 1개만 있는지 체크 .
+		assertThat(memberDao.selectMemberCnt(), is(1));
+		
+		// 아이디만 중복 시키기 .
+		member1.setNickname("asdasdasd");
+		
+		//중복 체크
+		memberService.insertMember(paramMap);
+		Map<String, Object> returnMap = 
+				memberService.insertMember(paramMap);
+		
+		// DB가 1개만 있는지 체크 .
+		assertThat(memberDao.selectMemberCnt(), is(1));
+		
+		// 아이디는 false 닉네임은 true을 반환하는지
+		assertThat((Boolean)returnMap.get("isInvalidId"), is(false));
+		assertThat((Boolean)returnMap.get("isInvalidNickname"), is(true));
+		
+		//닉네임만 중복시키기
+		member1.setNickname("testNickname");
+		member1.setId("asdgasd");
+		
+		// DB가 1개만 있는지 체크 .
+		memberService.insertMember(paramMap);
+		assertThat(memberDao.selectMemberCnt(), is(1));
+		
+		// 아이디는 true 닉네임은 false을 반환하는지
+		assertThat((Boolean)returnMap.get("isInvalidId"), is(true));
+		assertThat((Boolean)returnMap.get("isInvalidNickname"), is(false));
+		
+		
+		
+		
 	}
 	
 	
 	@Test
-	public void loginTest() {
+	public void loginTest() throws MemberDuplicationException {
 		memberDao.deleteAllMember();
 		
 		assertThat(memberDao.selectMemberCnt(), is(0));

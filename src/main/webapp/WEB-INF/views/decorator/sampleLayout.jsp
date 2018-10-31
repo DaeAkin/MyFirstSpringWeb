@@ -78,7 +78,7 @@
 			
         
         --%>
-        <%--
+        <%
         BoardDao boardDao = new BoardDaoImpl();
    		BoardService boardService = new BoardServiceImpl();
         int totalAlert; // 전체 알람 갯수 변수
@@ -108,9 +108,9 @@
     		 
     		 System.out.println("알려줄 알람 수 : " + totalAlert);  
     	} 
-        
+       %>
      	  	
-        --%>
+       
         
        
      <body class="home">
@@ -126,7 +126,7 @@
                 <div class="navi">
                     <ul>
                         <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
-                        <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">QNA</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/board/list"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">자유게시판</span></a></li>
                         <li><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">News</span></a></li>
                         <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Calender</span></a></li>
                         <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>

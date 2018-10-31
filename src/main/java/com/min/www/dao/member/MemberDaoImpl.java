@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.min.www.Exception.IsNotValidId;
+import com.min.www.Exception.IsNotValidNickname;
 import com.min.www.dto.member.MemberDto;
 
 @Repository("MemberDao")
@@ -42,11 +44,7 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.delete("deleteMember",paramMap);
 	}
 
-	@Override
-	public int memberInvalidCheck(Map<String, Object> paramMap) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("memberInvalidCheck",paramMap);
-	}
+
 
 	@Override
 	public int memberNickCheck(Map<String, Object> paramMap) {
@@ -77,6 +75,19 @@ public class MemberDaoImpl implements MemberDao{
 	public void memberEdit(Map<String, Object> paramMap) {
 		sqlSession.update("memberEdit",paramMap);
 		
+	}
+
+
+	@Override
+	public int isInvalidId(Map<String, Object> paramMap) {
+		
+		return sqlSession.selectOne("isInvalidId",paramMap);
+	}
+
+	@Override
+	public int isInvalidNickname(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("isInvalidNickname",paramMap);
 	}
 	
 	

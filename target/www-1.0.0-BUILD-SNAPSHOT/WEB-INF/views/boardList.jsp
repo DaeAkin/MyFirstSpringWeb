@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시판</title>
+<title>자유게시판</title>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.js"></script>
 <content tag="local_script">
@@ -166,7 +166,7 @@
 	System.out.println("싸이즈 : " + boardAndAlertJoinDtos.size());
 	%>
 
-	<h1>QNA</h1>
+	<h1>자유게시판</h1>
 
 
 
