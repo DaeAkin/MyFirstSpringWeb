@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -161,7 +162,7 @@ public class FileUtils {
 		String fileName = uuid.toString() + originalName.substring(originalName.lastIndexOf("."));
 		// 파일 경로를 받아 파일객체 생성
 		File target = new File(uploadPath + fileName);
-		System.out.println("파일이 저 할 위치 : " + uploadPath + fileName);
+		System.out.println("파일이 저장 할 위치 : " + uploadPath + fileName);
 		 /*임시 디렉토리에 업로드된 파일을 
 		 reSzieImage메소드 호출 후 썸네일 100x100 사이즈로 생성후 저장.
 		 그 전에 파일이 임시저장소에 올라가있는데 그걸 디렉토리로 복사해주기
@@ -175,6 +176,9 @@ public class FileUtils {
 		System.out.println("fileData  : " + fileData);
 		//임시 디렉토리에 업로드된 파일을 지정된 디렉토리로 복사
 		//오류 
+//		FileOutputStream fos = new FileOutputStream(uploadPath + fileName);
+//		fos.write(fileData);
+//		fos.close();
 		FileCopyUtils.copy(fileData, target);
 		System.out.println("---breaking2 cut ---");
 		System.out.println("회원 이미파일 업로드 경로 : " + uploadPath + fileName);
