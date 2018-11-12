@@ -4,6 +4,8 @@ package com.min.www.Service.member;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.min.www.Exception.IsNotValidId;
 import com.min.www.Exception.IsNotValidNickname;
 import com.min.www.Exception.MemberDuplicationException;
@@ -32,7 +34,7 @@ public interface MemberService {
 	
 	
 	
-	Map<String, Object> memberImageUpload(String user,String uploadPath, String originalName, byte[] fileData ) throws Exception;
+	Map<String, Object> memberImageUpload(HttpServletRequest request ,String user,String uploadPath, String originalName, byte[] fileData ) throws Exception;
 	
 	void memberEdit(Map<String, Object> paramMap);
 }

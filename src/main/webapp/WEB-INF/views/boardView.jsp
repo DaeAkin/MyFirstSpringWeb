@@ -552,7 +552,7 @@ $(document).ready(function() {
 				
 				})
 
-                //파일업로드 ajax 
+               //파일업로드 ajax 
                 $("#ajaxUpload").on("click",function(event) {
                     event.preventDefault();
                     var formData = new FormData();
@@ -582,7 +582,7 @@ $(document).ready(function() {
                     
                         
                             
-                        $(".uploadList").append(str);
+                        /* $(".uploadList").append(str); */
                         oEditors.getById["smarteditor"].exec("PASTE_HTML", [textstr]);
                         }
                     })

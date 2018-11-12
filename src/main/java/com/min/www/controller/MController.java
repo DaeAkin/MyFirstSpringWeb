@@ -31,8 +31,8 @@ public class MController {
 	@Autowired
 	MemberService memberService;
 	
-	@Resource
-	String imageUploadPath;
+	
+	
 	
 	@Resource
 	FileUtils fileUtils;
@@ -167,8 +167,9 @@ public class MController {
 	}
 	//회원가입 폼
 	@RequestMapping(value="/member/memberSignupForm")
-	public String memberSignupForm() {
+	public String memberSignupForm(HttpServletRequest request) {
 		System.out.println(" ----- memberSignupForm --------");
+		System.out.println(request.getSession().getServletContext().getRealPath("/"));
 		
 		return "memberSignupForm";
 	}
@@ -193,7 +194,7 @@ public class MController {
 			
 			// insertMember Return 값 받기.
 			paramMap.put("isInvalid",insertMemberMap);
-			return "board/list"; // 추후에 홈으로 수정
+			return "redirect:/board/list"; // 추후에 홈으로 수정
 		} catch (MemberDuplicationException e) {
 			// 중복 값이 있다면 ~ 
 			
@@ -268,9 +269,10 @@ public class MController {
 	
 	@RequestMapping(value="/member/image/upload")
 	@ResponseBody
-	public Map<String, Object> memberImageUpload(MultipartFile file,HttpSession session)  throws Exception{
+	public Map<String, Object> memberImageUpload(HttpServletRequest request,MultipartFile file,HttpSession session)  throws Exception{
 		
 		System.out.println("----- 사용자 이미지 업로드 -----");
+		String imageUploadPath = request.getSession().getServletContext().getRealPath("/") + "resources/profileImage/";
 		byte[] fileData = file.getBytes();
 		String originalName = file.getOriginalFilename();
 		System.out.println("originalName :" + originalName);
@@ -283,7 +285,7 @@ public class MController {
 		Map<String, Object> paramMap = new HashMap<>();
 		//파일을 저장하는 Service
 		paramMap = 
-				memberService.memberImageUpload(user,imageUploadPath, originalName, fileData);
+				memberService.memberImageUpload(request, user,imageUploadPath, originalName, fileData);
 		
 		
 		return paramMap;

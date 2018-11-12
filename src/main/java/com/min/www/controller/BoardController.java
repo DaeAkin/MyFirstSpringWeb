@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 //import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -71,7 +72,7 @@ public class BoardController {
 		this.fileutils = fileutils;
 	}
 
-	String uploadPath;
+	String uploadPath = "/Users/donghyeonmin/git/WebPj2/src/main/webapp/resources/imageupload/";
 	
 	private Map<String, Object> getAlerts() {
 		//리턴해줄 맵
@@ -458,6 +459,12 @@ public class BoardController {
 	public String testDto() {
 		
 		return "testDto";
+	}
+	
+	// 이미지 업로드 팝업창 띄우는 메소드 
+	@RequestMapping(value ="/imageUploadView")
+	public String imageUploadView() {
+		return "imageUploadView";
 	}
 
 }

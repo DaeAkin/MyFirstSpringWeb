@@ -1,5 +1,7 @@
 package com.min.www.Service.member;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.HashMap;
 
 
@@ -164,7 +166,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public Map<String, Object> memberImageUpload(String user,String uploadPath, String originalName, byte[] fileData) throws Exception {
+	public Map<String, Object> memberImageUpload(HttpServletRequest request, String user,String uploadPath, String originalName, byte[] fileData) throws Exception {
 		// TODO Auto-generated method stub
 		//이미자가 경로된 위치 값을 리턴받는 변수
 		Map<String, String> returnedImageurl = new HashMap<>();
