@@ -180,7 +180,7 @@
                                            
                                         </a>
 
-                                        		<c:forEach var="boardAndAlertJoinDtos" items="${boardAndAlertJoinDtos }" varStatus="status">
+                            <%--             		<c:forEach var="boardAndAlertJoinDtos" items="${boardAndAlertJoinDtos }" varStatus="status">
                                                     
                                                       <div class="input-group">
                                                       
@@ -189,7 +189,7 @@
                                                      
                                                         <div class="divider">
                                                     </div>
-                                               </c:forEach>
+                                               </c:forEach> --%>
 
                                                     
                                                     

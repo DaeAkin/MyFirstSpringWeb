@@ -661,7 +661,7 @@ return true;
 
 						<div class="media">
 							<div class="media-left">
-								<a href="#"> <img class="media-object" src="<%=request.getContextPath() %>/resources/image/64x64.svg"
+								<a href="#"> <img class="media-object" src="<%=request.getContextPath() %>/resources/profileImage/${boardView.IMAGEURL}"
 									alt="회원사진">
 								</a>
 							</div>

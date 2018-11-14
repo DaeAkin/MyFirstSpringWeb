@@ -280,10 +280,10 @@ nhn.husky.EZCreator
 		});
 function pasteHTML(str) {
 	alert(str);
-	var sHTML = "<span style='color:#FF0000;'>"+str+"</span>";
+	/* var sHTML = "<span style='color:#FF0000;'>"+str+"</span>"; */
 	
 	oEditors.getById["smarteditor"].exec("PASTE_HTML",
-			[ sHTML ]);
+			[ str ]);
 }
 function showHTML() {
 	var sHTML = oEditors.getById["smarteditor"].getIR();

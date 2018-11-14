@@ -118,12 +118,12 @@
 	
 	<select id="selectContentView" resultType="com.min.www.dto.BoardDto" parameterType="java.util.HashMap">
 		select
-			id,
+			freeboard.id,
 			title,
 			writer,
 			content,
 			date_format(writetime, '%Y-%m-%d %H:%i:%s' ) writetime
-			
+	
 		from
 			freeboard
 		where

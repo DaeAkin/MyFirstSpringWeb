@@ -1,5 +1,7 @@
 package com.min.www.dto;
 
+import java.util.Set;
+
 public class BoardDto {
 	private int id;
 	private String title;
@@ -7,6 +9,7 @@ public class BoardDto {
 	private String writetime;
 	private String content;
 	private int hit;
+	private String IMAGEURL;
 
 	
 	public BoardDto() {
@@ -14,7 +17,8 @@ public class BoardDto {
 	}
 	
 	public BoardDto(int id,String title, String writer,
-			String writetime,String content,int hit) {
+			String writetime,String content,int hit, 
+			String IMAGEURL) {
 		// TODO Auto-generated constructor stub
 		this.id = id ;
 		this.title = title ;
@@ -22,11 +26,17 @@ public class BoardDto {
 		this.writetime = writetime ;
 		this.hit = hit ;
 		this.content = content ;
-	
+		this.IMAGEURL = IMAGEURL;
 	}
 	
 	
 	
+	public String getIMAGEURL() {
+		return IMAGEURL;
+	}
+	public void setIMAGEURL(String iMAGEURL) {
+		IMAGEURL = iMAGEURL;
+	}
 	public String getWritetime() {
 		return writetime;
 	}

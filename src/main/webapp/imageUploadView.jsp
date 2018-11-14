@@ -14,7 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     
 <script>
-    
+		var printImageList = "";
         $(document).ready(function() {
         
        
@@ -40,29 +40,37 @@
                    
                         var str = "";
                         var textstr = "";
+                      
                         
-                        str = "<div><a href='<%=request.getContextPath()%>/board/displayFile?fileName="+data.originalFile+"'>";
-                        str += "<img src='<%=request.getContextPath()%>/board/displayFile?fileName="+data.makeThumbnail+"'></a></div>";
-                        textstr = "<div><a href='<%=request.getContextPath()%>/board/displayFile?fileName="+data.originalFile+"'>";
-                        textstr += "<img style='max-width:100%; height:auto'src='<%=request.getContextPath()%>/board/displayFile?fileName="+data.boardInsertImage+"'/></a>";
-                    
+                       <%--  str = "<div><a href='<%=request.getContextPath()%>/board/displayFile?fileName="+data.originalFile+"'>"; --%>
+                        <%-- str += "<img src='<%=request.getContextPath()%>/board/displayFile?fileName="+data.makeThumbnail+"'></a></div>"; --%>
+                        str += "<img src='<%=request.getContextPath()%>/board/displayFile?fileName="+data.makeThumbnail+"'>";
+<%--                         textstr = "<div><a href='<%=request.getContextPath()%>/board/displayFile?fileName="+data.originalFile+"'>"; --%>
+                        textstr += "<span style='color:#FF0000;'><img style='max-width:100%; height:auto'src='<%=request.getContextPath()%>/board/displayFile?fileName="+data.boardInsertImage+"'/></span>";
+                        printImageList += "<span><img style='max-width:100%; height:auto'src='<%=request.getContextPath()%>/board/displayFile?fileName="+data.boardInsertImage+"'/></span>";
+                        /*
+                        	imageList : 썸네일 찍기위한 코드. 
+                        	printImageList : 게시판에 붙일때 쓰는 코드
+                        */
                         
                         
-                        $("#textstr").val(textstr);
+                        $("#textstr").val(printImageList);
                             
-                        var imageList = 
-                     		  " <div class='row'>" +
+                        var imageList ="<div class='row'>" +
                      			 "<div class='col-xs-6 col-md-3'>" +
                      				"<a href='#' class='thumbnail'>" +
-                     			"<img src="+str+" />"+
+                     			str +
                      			"</a>" +
                      				"</div>" +
                      				"</div>";
+                     				
+                     		/* alert(imageList); */
                      			
                         	
                         
                         	$("#imageList").append(imageList);
-                        	
+                        	$("#textstr").val(printImageList);
+                        	alert($("#textstr").val());
                         	
                         
                         }
@@ -97,14 +105,9 @@
 <div class="page-header">
     <input type="file" name="uploadFile" id="uploadFile" accept="image/*"> 
 </div>
+
 <div id="imageList">
-<!-- 	<div class="row">
-	  <div class="col-xs-6 col-md-3">
-	    <a href="#" class="thumbnail">
-	      <img src="171x180.svg" alt="...">
-	    </a>
-	  </div>  
-	</div> -->
+
 </div>
 
 <input type="button" class="btn btn-default" value="업로드" onclick="send()"/>
