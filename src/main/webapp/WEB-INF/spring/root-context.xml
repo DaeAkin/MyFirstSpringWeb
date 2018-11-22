@@ -12,7 +12,7 @@
 	
 	
 	<mvc:interceptors>
-		<bean class="com.min.www.interceptor.AlertInterceptor"/>
+		<bean class="com.min.www.interceptor.AlertInterceptor" id="AlertInterceptor"/>
 	</mvc:interceptors>
 	
 	
