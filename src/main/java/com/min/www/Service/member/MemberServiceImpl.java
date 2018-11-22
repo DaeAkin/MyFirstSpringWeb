@@ -226,6 +226,12 @@ public class MemberServiceImpl implements MemberService{
 		return isCanUseNickname;
 	}
 
+	@Override
+	public MemberDto getMemberUsingNickanme(String nickname) {
+		// TODO Auto-generated method stub
+		return memberDao.getMemberUsingNickanme(nickname);
+	}
+
 
 	
 	

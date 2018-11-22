@@ -33,6 +33,7 @@ import com.min.www.Service.BoardService;
 import com.min.www.Service.member.MemberService;
 import com.min.www.dao.BoardDao;
 import com.min.www.dto.BoardAndAlertJoinDto;
+import com.min.www.dto.BoardDto;
 import com.min.www.dto.BoardReplyDto;
 import com.min.www.dto.member.MemberDto;
 import com.min.www.util.FileUtils;
@@ -201,9 +202,12 @@ public class BoardController {
 		List<BoardReplyDto> replyCount = boardService.getReplyList(paramMap);
 		
 		model.addAttribute("replyCount",replyCount.size());
-		
-		model.addAttribute("boardView", boardService.getContentView(paramMap));
-
+		BoardDto boardDto = boardService.getContentView(paramMap);
+		model.addAttribute("boardView",boardDto);
+//		System.out.println("boardDto.getWriter();" + boardDto.getWriter());
+		MemberDto memberDto = memberService.getMemberUsingNickanme(boardDto.getWriter());
+//		System.out.println("memberDto의 imageUrl :" +memberDto.getImageurl());
+		model.addAttribute("member",memberDto);
 		return "boardView";
 	}
 
@@ -466,5 +470,7 @@ public class BoardController {
 	public String imageUploadView() {
 		return "imageUploadView";
 	}
+	
+	
 
 }

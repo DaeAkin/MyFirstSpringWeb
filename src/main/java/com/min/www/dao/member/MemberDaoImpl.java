@@ -89,6 +89,12 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("isInvalidNickname",paramMap);
 	}
+
+	@Override
+	public MemberDto getMemberUsingNickanme(String nickname) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getMemberUsingNickname",nickname);
+	}
 	
 	
 

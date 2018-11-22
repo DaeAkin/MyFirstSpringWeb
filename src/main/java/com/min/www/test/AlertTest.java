@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -68,8 +69,6 @@ public class AlertTest {
 		boardReplyDto3 = new BoardReplyDto( "1", "0",
 				"0", "hi3", "who?", "1234", null, "34.png", "456.png");
 		
-		
-
 		boardReplyParam1 = paramFactory.boardDtoReplyFactory(boardReplyDto1);
 
 		boardReplyParam2 = paramFactory.boardDtoReplyFactory(boardReplyDto2);
@@ -84,7 +83,7 @@ public class AlertTest {
 		ParamFactory paramFactory = new ParamFactory();
 
 		boardDto = new BoardDto(1, "test!!", "DaeAkin",
-				null, "contentArea", 0);
+				null, "contentArea", 0, null);
 
 		boardParam = paramFactory.boardDtoFactory(boardDto);
 

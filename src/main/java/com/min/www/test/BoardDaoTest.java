@@ -42,9 +42,9 @@ public class BoardDaoTest {
 	@Before
 	public void setUp() {
 		paramMap = new HashMap<>();
-		board1 = new BoardDto(1, "안녕", "아무개", null, "하이하이", 5);
-		board2 = new BoardDto(2, "하힛", "누굴까", null, "하이하이", 3);
-		board3 = new BoardDto(3, "룰루", "랄라", null, "하이하이", 100);
+		board1 = new BoardDto(1, "안녕", "아무개", null, "하이하이", 5, null);
+		board2 = new BoardDto(2, "하힛", "누굴까", null, "하이하이", 3, null);
+		board3 = new BoardDto(3, "룰루", "랄라", null, "하이하이", 100, null);
 
 		replyDto1 = new BoardReplyDto("1", "1", "1", "1", "hihi", "아무개", null, null, null, null);
 		

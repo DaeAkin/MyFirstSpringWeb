@@ -37,4 +37,6 @@ public interface MemberService {
 	Map<String, Object> memberImageUpload(HttpServletRequest request ,String user,String uploadPath, String originalName, byte[] fileData ) throws Exception;
 	
 	void memberEdit(Map<String, Object> paramMap);
+
+	MemberDto getMemberUsingNickanme(String nickname);
 }

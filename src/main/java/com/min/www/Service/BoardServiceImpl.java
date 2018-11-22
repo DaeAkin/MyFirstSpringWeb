@@ -292,7 +292,10 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public List<BoardAndAlertJoinDto> getAlerts(String writer) {
-		// TODO Auto-generated method stub
+		
+		System.out.println("알람 검사할 작성자 : " + writer);
+		
+
 		return boardDao.getAlerts(writer);
 	}
 
@@ -302,6 +305,15 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.getOneReply(reply_id);
 	}
 	
+	
+	public List<Integer> testList() {
+		List<Integer> list = new ArrayList<>();
+		
+		list.add(3);
+		list.add(4);
+		
+		return list;
+	}
 	
 
 //	@Override

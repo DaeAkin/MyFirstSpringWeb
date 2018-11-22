@@ -42,10 +42,21 @@
 	from
 		member
 	where id=#{id}
-		
-
-
 </select>
+
+
+<select id="getMemberUsingNickname" parameterType="String" resultType="com.min.www.dto.member.MemberDto">
+	select
+		id,
+		password,
+		nickname,
+		email,
+		imageurl
+	from
+		member
+	where nickname=#{nickname}
+</select>
+
 
 <select id="memberNickCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 	select

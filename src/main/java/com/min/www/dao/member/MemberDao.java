@@ -36,4 +36,6 @@ public interface MemberDao {
 	
 	void memberEdit(Map<String, Object> paramMap);
 
+	MemberDto getMemberUsingNickanme(String nickname);
+
 }

@@ -88,6 +88,7 @@ public class MemberTest {
 		memberService.insertMember(paramMap);
 		
 		
+		
 		assertThat(memberDao.selectMemberCnt(), is(1));
 		
 		MemberDto DBResultMemberDto = 
@@ -200,5 +201,26 @@ public class MemberTest {
 //		.andExpect(model().attributeExists("boardList"));
 		
 //	}
+	
+	@Test
+	public void getMemberUsingNickname() throws MemberDuplicationException {
+		
+		memberDao.deleteAllMember();
+		
+		assertThat(memberDao.selectMemberCnt(), is(0));
+		
+		
+		Map<String, Object> paramMap = 
+				paramFactory.memberDtoFactory(member1);
+		System.out.println(paramMap.get("id"));
+		memberService.insertMember(paramMap);
+
+		assertThat(memberDao.selectMemberCnt(), is(1));
+		
+		MemberDto memberDto = 
+				memberService.getMemberUsingNickanme(member1.getNickname());
+		assertThat(memberDto.getImageurl(), is(member1.getImageurl()));
+		
+	}
 
 }
