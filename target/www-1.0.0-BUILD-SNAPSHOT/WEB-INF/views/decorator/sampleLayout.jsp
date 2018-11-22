@@ -34,6 +34,8 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
         
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/custom.css">
         <style>
    
@@ -64,9 +66,13 @@
        		int a = boardDao.returnTest();
        		System.out.println("머야 : " + a);
        		
+       		List<Integer> list = new ArrayList<>();
+       		list.add(0, 3);
        		
        		List<BoardAndAlertJoinDto> boardAndAlertJoinDtos =
-			boardDao.getAlerts("바보");
+       				new ArrayList<>();
+       		boardAndAlertJoinDtos = boardService.getAlerts("대악인");
+			
 			
 			//System.out.println("머야시 : " + boardAndAlertJoinDtos.size());
 			
@@ -86,24 +92,29 @@
     		 
     		// 오류가 나는 부분
     		try {
+    				System.out.println("------------------------------ " );
     				List<BoardAndAlertJoinDto> aa =
-    				boardDao.getAlerts("바보");
-    				
+    				boardDao.getAlerts(memberDto.getNickname());
+    				System.out.println("------------------------------ " );
     				System.out.println("return test : " + boardDao.returnTest());
     			
     			  totalAlert = aa.size(); 
     		} catch(NullPointerException e) {
     			  totalAlert = 0;
     			  System.out.println("nullPointerException 입니다.");
+    			  
     		}
     		
     		 
     		 System.out.println("알려줄 알람 수 : " + totalAlert);  
     	} 
-        
+       %>
      	  	
-        %>
+       
+        
+       
      <body class="home">
+      
     <div class="container-fluid display-table">
         <div class="row display-table-row">
             <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
@@ -115,7 +126,7 @@
                 <div class="navi">
                     <ul>
                         <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
-                        <li><a href="#"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">QNA</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/board/list"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">자유게시판</span></a></li>
                         <li><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">News</span></a></li>
                         <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Calender</span></a></li>
                         <li><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
@@ -149,12 +160,13 @@
                                 <%if(session.getAttribute("loginuser") != null) {
                                 	
 					%>
-                                 
+                         
 <!--                                    <li class="hidden-xs"></li>-->
+ 									
                                     <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
                                     
                                     
-                                                           <li class="dropdown">
+                                         <li class="dropdown">
                                         <a href="#" class="icon-info dropdown-toggle" data-toggle="dropdown"><span class="fa fa-bell" aria-hidden="true"></span>
                                             <span class="label label-primary">${totalAlert }</span>
                                             <b class="caret"></b></a>
@@ -168,7 +180,7 @@
                                            
                                         </a>
 
-                                        		<c:forEach var="boardAndAlertJoinDtos" items="${boardAndAlertJoinDtos }" varStatus="status">
+                            <%--             		<c:forEach var="boardAndAlertJoinDtos" items="${boardAndAlertJoinDtos }" varStatus="status">
                                                     
                                                       <div class="input-group">
                                                       
@@ -177,7 +189,7 @@
                                                      
                                                         <div class="divider">
                                                     </div>
-                                               </c:forEach>
+                                               </c:forEach> --%>
 
                                                     
                                                     
@@ -219,6 +231,7 @@
                                         </ul>
                                     </li>
                                   
+                                   <!-- 로그인 상태가 아니라면 -->
                                 <%} else {%>
                                     <!-- Single button -->
                                         
@@ -226,7 +239,11 @@
                                        
                                         
                                       
-                                
+                                <li>
+                           
+                                <a href="<%=request.getContextPath()%>/member/memberSignupForm"><i class="fas fa-address-book"></i></a>
+                                </li>
+                               
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
                                             <b class="caret"></b></a>
@@ -237,11 +254,11 @@
                                                    <form action="<%=request.getContextPath()%>/member/login" method="POST">
                                                    <div class="input-group">
   <span class="input-group-addon" id="sizing-addon2">ID</span>
-  <input type="text" id="id" name="id" class="form-control" placeholder="ID" aria-describedby="sizing-addon2">
+  <input type="text" id="loginform_id" name="id" class="form-control" placeholder="ID" aria-describedby="sizing-addon2">
 </div>
                                            <div class="input-group">
   <span class="input-group-addon" id="sizing-addon2">PW</span>
-  <input type="password" id="password" name="password" class="form-control" placeholder="PW" aria-describedby="sizing-addon2">
+  <input type="password" id="loginform_password" name="password" class="form-control" placeholder="PW" aria-describedby="sizing-addon2">
 </div>
                                                     <div class="divider">
                                                     </div>
@@ -298,5 +315,6 @@
         </div>
     </div>
 </body>
+
 
     </html>

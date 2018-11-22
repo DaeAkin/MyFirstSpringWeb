@@ -8,20 +8,24 @@
 		id,
 		password,
 		nickname,
-		email
+		email,
+		IMAGEURL,
+		ORIGINALIMAGEURL
 		) values (
 		#{id},
 		#{password},
 		#{nickname},
-		#{email}
+		#{email},
+		#{IMAGEURL},
+		#{ORIGINALIMAGEURL}
 		)
 	
 
 </insert>
 
-<select id="memberIdCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+<select id="memberInvalidCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 	select 
-		count(id)
+		*
 	from
 		member
 	where id=#{id}
@@ -38,10 +42,21 @@
 	from
 		member
 	where id=#{id}
-		
-
-
 </select>
+
+
+<select id="getMemberUsingNickname" parameterType="String" resultType="com.min.www.dto.member.MemberDto">
+	select
+		id,
+		password,
+		nickname,
+		email,
+		imageurl
+	from
+		member
+	where nickname=#{nickname}
+</select>
+
 
 <select id="memberNickCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 	select
@@ -88,5 +103,29 @@ select
 	where 
 		id = #{id}
 </update>
+
+<!--  id 중복 확인  -->
+<select id="isInvalidId" parameterType="java.util.HashMap"
+resultType="int">
+	select 
+		count(id)
+	from
+		member
+	where
+		id = #{id}
+</select>
+
+<!--  pw 중복 확인 -->
+
+<select id="isInvalidNickname" parameterType="java.util.HashMap"
+resultType="int">
+
+	select 
+		count(nickname)
+	from
+		member
+	where
+		nickname = #{nickname}
+</select>
 
 </mapper>

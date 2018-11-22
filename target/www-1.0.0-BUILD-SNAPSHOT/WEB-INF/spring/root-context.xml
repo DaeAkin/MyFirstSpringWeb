@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		              http://www.springframework.org/schema/aop
+              http://www.springframework.org/schema/aop/spring-aop-3.0.xsd      http://www.springframework.org/schema/mvc ">
 	
-
-
+	
+	
+			<mvc:interceptors>
+		<bean class="com.min.www.interceptor.AlertInterceptor"/>
+	</mvc:interceptors>
+	
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -44,6 +52,10 @@
 	
 	<bean id="fileUtils" class="com.min.www.util.FileUtils"></bean>
 	<bean id="timeUtil" class="com.min.www.util.TimeUtil"></bean>
+	
+	<aop:config>
+		
+	</aop:config>
 
 
 

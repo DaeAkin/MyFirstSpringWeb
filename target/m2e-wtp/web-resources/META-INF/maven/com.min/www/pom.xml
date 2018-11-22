@@ -9,7 +9,7 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 <properties>
 	<java-version>1.8</java-version>
-	<org.springframework-version>4.1.7.RELEASE</org.springframework-version>
+	<org.springframework-version>4.3.14.RELEASE</org.springframework-version>
 	<org.aspectj-version>1.6.10</org.aspectj-version>
 	<org.slf4j-version>1.6.6</org.slf4j-version>
 </properties>
@@ -24,7 +24,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
-        <version>4.3.6.RELEASE</version>
+        <version>${org.springframework-version}</version>
     </dependency>
 
 
@@ -33,6 +33,7 @@
 	<artifactId>javax.servlet-api</artifactId>
 	<version>3.1.0</version>
 </dependency>
+		
 
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -51,6 +52,13 @@
 			<version>4.2</version>
 		</dependency>
 		
+		
+	<!--  interceptor 를 위한 lib -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-web</artifactId>
+    <version>${org.springframework-version}</version>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-mock -->
 <dependency>
     <groupId>org.springframework</groupId>

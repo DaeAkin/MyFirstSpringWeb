@@ -14,7 +14,7 @@
 	</definition>
 
 
-	<definition name="/" extends="layout">
+<definition name="/" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/index.jsp" />
 	</definition>
 

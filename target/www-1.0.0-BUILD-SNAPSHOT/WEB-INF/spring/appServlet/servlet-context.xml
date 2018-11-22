@@ -30,6 +30,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2"/>
 	</beans:bean>
 
 	<context:component-scan base-package="com.min.www.*" />
@@ -59,14 +60,14 @@
 		<beans:property name="suffix" value=".jsp" />
 
 
-	</beans:bean>
+	</beans:bean> 
 
 	<beans:bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 		<beans:property name="order" value="1" />
-	</beans:bean>
+	</beans:bean> 
 
 
 	<beans:bean id="tilesConfigurer"
@@ -77,7 +78,7 @@
 			</beans:list>
 		</beans:property>
 
-	</beans:bean>
+	</beans:bean> 
 
 	<!-- 게시판파일업로드 경로 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
@@ -86,7 +87,7 @@
 	</beans:bean>
 	<!--  멤버 이미지 파일 업로드 경로  -->
 	<beans:bean id="imageUploadPath" class="java.lang.String">
-		<beans:constructor-arg value="/Users/mindonghyeon/git/WebPj2/src/main/webapp/resources/profileImage/" />
+		<beans:constructor-arg value="/Users/donghyeonmin/git/WebPj2/src/main/webapp/resources/profileImage/" />
 
 	</beans:bean>
 	
